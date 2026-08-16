@@ -1,1006 +1,1130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#f8e8e8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7e7e8" />
   <title>Islamic Bloom — August Snail Mail</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-:root {
-  --pink: #f6dddd;
-  --pink-light: #fff2f3;
-  --pink-deep: #c98991;
-  --rose: #b96f79;
-  --cream: #fffaf5;
-  --beige: #eadfd3;
-  --beige-deep: #d7c4b2;
-  --white: #ffffff;
-  --ink: #624f50;
-  --muted: #8f7979;
-  --shadow: 0 18px 50px rgba(113, 79, 79, .16);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-  color: var(--ink);
-  font-family: "DM Sans", sans-serif;
-  background:
-    radial-gradient(circle at 15% 12%, rgba(255,255,255,.95) 0 7%, transparent 8%),
-    radial-gradient(circle at 90% 25%, rgba(255,255,255,.65) 0 5%, transparent 6%),
-    linear-gradient(145deg, #fffaf7, #f9e8e8 48%, #efe3d8);
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: .25;
-  background-image:
-    radial-gradient(#dcaeb1 1px, transparent 1px),
-    radial-gradient(#fff 1px, transparent 1px);
-  background-size: 32px 32px, 46px 46px;
-  background-position: 0 0, 12px 15px;
-}
-
-button, textarea {
-  font: inherit;
-}
-
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.app {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 900px);
-  margin: auto;
-  padding: max(28px, env(safe-area-inset-top)) 18px 80px;
-}
-
-.brand {
-  text-align: center;
-  padding: 10px 0 24px;
-}
-
-.brand-flower {
-  font-size: 31px;
-  filter: drop-shadow(0 5px 6px rgba(137,89,89,.15));
-  animation: float 3s ease-in-out infinite;
-}
-
-.eyebrow {
-  margin: 7px 0 5px;
-  color: var(--rose);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .2em;
-}
-
-h1, h2 {
-  font-family: "Cormorant Garamond", serif;
-  color: #765b5e;
-}
-
-.brand h1 {
-  margin: 0;
-  font-size: clamp(37px, 10vw, 58px);
-  line-height: .95;
-}
-
-.subtitle {
-  color: var(--muted);
-  margin: 11px 0 0;
-  font-size: 14px;
-}
-
-.mail-stage {
-  min-height: 440px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  perspective: 1200px;
-  padding: 55px 0 30px;
-}
-
-.envelope {
-  position: relative;
-  width: min(92vw, 560px);
-  aspect-ratio: 1.48 / 1;
-  filter: drop-shadow(0 28px 28px rgba(91,61,61,.18));
-  transform-style: preserve-3d;
-}
-
-.envelope-back {
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #f7dfe0, #edcccc);
-  border: 1px solid rgba(150,105,105,.15);
-}
-
-.envelope-front {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  overflow: hidden;
-  border-radius: 18px;
-  background:
-    linear-gradient(32deg, transparent 49.5%, rgba(202,155,158,.26) 50%, transparent 50.7%),
-    linear-gradient(-32deg, transparent 49.5%, rgba(202,155,158,.26) 50%, transparent 50.7%),
-    linear-gradient(145deg, #f8e3e3, #efd0d2);
-  clip-path: polygon(0 0, 50% 46%, 100% 0, 100% 100%, 0 100%);
-}
-
-.flap {
-  position: absolute;
-  z-index: 8;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 59%;
-  transform-origin: top center;
-  transform-style: preserve-3d;
-  transition: transform 1.05s cubic-bezier(.2,.8,.2,1);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  background: linear-gradient(165deg, #f9e6e7, #efcfd1);
-  border-radius: 18px 18px 0 0;
-}
-
-.liner {
-  position: absolute;
-  inset: 7px;
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  place-items: center;
-  font-size: 20px;
-  opacity: .72;
-  background: #fff8f2;
-  clip-path: polygon(0 0,100% 0,50% 100%);
-}
-
-.envelope.open .flap {
-  transform: rotateX(178deg);
-  z-index: 1;
-}
-
-.letter-preview {
-  position: absolute;
-  z-index: 3;
-  left: 9%;
-  right: 9%;
-  top: 12%;
-  height: 74%;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 22px;
-  gap: 5px;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(239,202,205,.4) 0 3px, transparent 4px),
-    #fffaf4;
-  box-shadow: 0 3px 15px rgba(100,70,70,.1);
-  transition: transform 1.1s .45s cubic-bezier(.2,.8,.2,1);
-}
-
-.letter-preview span {
-  font-size: 24px;
-}
-
-.letter-preview strong {
-  color: var(--rose);
-  font-family: "Cormorant Garamond", serif;
-  font-size: 21px;
-}
-
-.letter-preview small {
-  color: var(--muted);
-}
-
-.envelope.open .letter-preview {
-  transform: translateY(-48%);
-}
-
-.address-label {
-  position: absolute;
-  left: 50%;
-  top: 57%;
-  transform: translate(-50%,-50%) rotate(-1deg);
-  width: 55%;
-  padding: 17px 10px;
-  text-align: center;
-  background: rgba(255,250,245,.92);
-  border: 1px solid #e5cfd0;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(117,80,80,.08);
-}
-
-.address-label span,
-.address-label small {
-  display: block;
-  font-size: 9px;
-  letter-spacing: .18em;
-}
-
-.address-label strong {
-  display: block;
-  margin: 4px 0;
-  color: #a86c74;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(18px,5vw,27px);
-}
-
-.stamp {
-  position: absolute;
-  top: 8%;
-  right: 7%;
-  width: 62px;
-  height: 76px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  color: #a36d73;
-  background: #fff8f0;
-  border: 2px dashed #c99499;
-  transform: rotate(4deg);
-}
-
-.stamp span { font-size: 24px; }
-.stamp small { font-size: 7px; font-weight: 700; text-align: center; letter-spacing: .1em; }
-
-.postmark {
-  position: absolute;
-  top: 17%;
-  right: 22%;
-  color: rgba(139,94,98,.5);
-  border: 1px solid rgba(139,94,98,.4);
-  border-radius: 50%;
-  padding: 8px 5px;
-  font-size: 8px;
-  transform: rotate(-8deg);
-}
-
-.seal {
-  position: absolute;
-  z-index: 10;
-  left: 50%;
-  top: 43%;
-  width: 92px;
-  height: 92px;
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  cursor: pointer;
-  color: white;
-  background:
-    radial-gradient(circle at 35% 30%, #df9da5, #bd747e 58%, #a55f69);
-  border: 5px double rgba(255,255,255,.45);
-  box-shadow: 0 8px 18px rgba(113,63,69,.25);
-  transition: transform .3s, opacity .4s;
-  animation: sealPulse 2.2s infinite;
-}
-
-.seal span { font-size: 24px; }
-.seal small { font-size: 7px; font-weight: 700; line-height: 1.15; text-align: center; }
-
-.envelope.open .seal {
-  transform: translate(-50%,-50%) scale(.2) rotate(25deg);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.tap-hint {
-  margin-top: 35px;
-  color: var(--rose);
-  text-align: center;
-  font-size: 13px;
-  animation: hint 2s ease-in-out infinite;
-}
-
-.mailbox {
-  padding-top: 20px;
-  animation: fadeUp .8s ease both;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.section-heading {
-  text-align: center;
-  margin: 15px 0 25px;
-}
-
-.section-heading h2 {
-  margin: 4px 0;
-  font-size: 36px;
-}
-
-.section-heading p:last-child {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.mail-grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 13px;
-}
-
-.mail-piece {
-  position: relative;
-  min-height: 155px;
-  padding: 20px 14px;
-  border: 1px solid rgba(180,132,135,.2);
-  border-radius: 22px;
-  text-align: left;
-  color: var(--ink);
-  background:
-    linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,244,241,.9));
-  box-shadow: 0 10px 25px rgba(112,76,76,.08);
-  cursor: pointer;
-  transition: transform .22s ease, box-shadow .22s ease;
-}
-
-.mail-piece:nth-child(3n+2) {
-  background: linear-gradient(145deg,#f8e1e2,#fff5f1);
-}
-
-.mail-piece:nth-child(4n) {
-  background: linear-gradient(145deg,#f0e5da,#fffaf5);
-}
-
-.mail-piece:active {
-  transform: scale(.97) rotate(-1deg);
-}
-
-.mail-piece.large {
-  grid-column: span 2;
-  min-height: 135px;
-}
-
-.piece-icon {
-  display: block;
-  font-size: 31px;
-  margin-bottom: 14px;
-}
-
-.piece-number {
-  position: absolute;
-  top: 14px;
-  right: 15px;
-  color: #c89ca0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px;
-}
-
-.mail-piece strong {
-  display: block;
-  font-family: "Cormorant Garamond", serif;
-  color: #75585b;
-  font-size: 21px;
-}
-
-.mail-piece small {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.mail-piece.locked {
-  opacity: .6;
-  filter: grayscale(.25);
-}
-
-.modal {
-  position: fixed;
-  z-index: 100;
-  inset: 0;
-  display: none;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 18px 12px max(12px, env(safe-area-inset-bottom));
-  background: rgba(82,61,61,.35);
-  backdrop-filter: blur(8px);
-}
-
-.modal.show {
-  display: flex;
-  animation: fadeIn .25s ease;
-}
-
-.modal-card {
-  position: relative;
-  width: min(100%, 650px);
-  max-height: 88vh;
-  overflow-y: auto;
-  padding: 35px 25px 40px;
-  border: 1px solid rgba(180,132,135,.22);
-  border-radius: 30px 30px 20px 20px;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at 90% 8%, rgba(245,218,219,.6) 0 45px, transparent 46px),
-    #fffaf5;
-  box-shadow: var(--shadow);
-  animation: sheetUp .4s cubic-bezier(.2,.8,.2,1);
-}
-
-.modal-card h2 {
-  margin: 5px 0 14px;
-  font-size: clamp(34px,9vw,48px);
-  line-height: .95;
-}
-
-.modal-card p {
-  line-height: 1.75;
-}
-
-.close {
-  position: sticky;
-  z-index: 5;
-  top: 0;
-  float: right;
-  width: 38px;
-  height: 38px;
-  border: 0;
-  border-radius: 50%;
-  color: #956b70;
-  background: #f7e3e3;
-  font-size: 25px;
-  cursor: pointer;
-}
-
-.letter-paper {
-  background:
-    linear-gradient(rgba(255,250,245,.95),rgba(255,250,245,.95)),
-    repeating-linear-gradient(0deg, transparent 0 31px, #eadfda 32px);
-}
-
-.divider {
-  margin: 20px 0;
-  text-align: center;
-  letter-spacing: .6em;
-}
-
-.big-message {
-  color: #ae6f78;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 42px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.big-message.smaller {
-  font-size: 31px;
-}
-
-blockquote {
-  margin: 25px 0;
-  padding: 24px 20px;
-  border: 1px solid #ead4d4;
-  border-radius: 20px;
-  color: #8c6066;
-  background: #fff2f2;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 25px;
-  font-weight: 600;
-  text-align: center;
-}
-
-blockquote cite {
-  display: block;
-  margin-top: 10px;
-  font-family: "DM Sans",sans-serif;
-  font-size: 11px;
-  font-style: normal;
-  letter-spacing: .12em;
-}
-
-.script-line {
-  color: #a76c74;
-  font-family: "Cormorant Garamond",serif;
-  font-size: 25px;
-  font-style: italic;
-}
-
-.giant-flower {
-  margin: 10px 0;
-  font-size: 100px;
-  text-align: center;
-  animation: float 3s infinite;
-}
-
-.collectible {
-  text-align: center;
-}
-
-.theme-word {
-  color: var(--rose);
-  font-weight: 700;
-  letter-spacing: .3em;
-}
-
-.affirmation {
-  margin-top: 25px;
-  padding: 18px;
-  border-radius: 18px;
-  color: #9b6870;
-  background: #f7e0e1;
-  font-family: "Cormorant Garamond",serif;
-  font-size: 25px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.arabic {
-  margin: 28px 0 12px;
-  color: #8e6268;
-  font-size: 31px;
-  line-height: 1.9;
-  text-align: center;
-}
-
-.transliteration {
-  color: #a46d75;
-  font-style: italic;
-  text-align: center;
-}
-
-.soft-note {
-  margin: 20px 0;
-  padding: 15px;
-  border-radius: 15px;
-  color: var(--muted);
-  background: #f5ebe3;
-  font-size: 12px;
-}
-
-.three-words {
-  display: grid;
-  gap: 8px;
-  margin-top: 25px;
-  text-align: center;
-  color: var(--rose);
-  font-family: "Cormorant Garamond",serif;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.deeds {
-  display: grid;
-  gap: 10px;
-  margin: 22px 0;
-}
-
-.deeds label {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 15px;
-  border: 1px solid #eddada;
-  border-radius: 16px;
-  background: rgba(255,255,255,.7);
-  cursor: pointer;
-}
-
-.deeds input {
-  width: 21px;
-  height: 21px;
-  flex: 0 0 auto;
-  accent-color: #c77f89;
-}
-
-.deeds label:has(input:checked) {
-  background: #f8e3e4;
-}
-
-.progress-wrap {
-  text-align: center;
-}
-
-.progress-bar {
-  height: 12px;
-  overflow: hidden;
-  margin: 15px 0 9px;
-  border-radius: 20px;
-  background: #eaded8;
-}
-
-.progress-bar div {
-  width: 0;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg,#e0a2aa,#bc7580);
-  transition: width .5s ease;
-}
-
-.secret-rules {
-  display: grid;
-  gap: 8px;
-  margin: 20px 0;
-}
-
-.secret-rules span {
-  padding: 11px;
-  border-radius: 12px;
-  background: #f7e7e5;
-  text-align: center;
-}
-
-.bloom-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 16px;
-  border: 0;
-  border-radius: 17px;
-  color: white;
-  background: linear-gradient(145deg,#d6929a,#b96f79);
-  box-shadow: 0 8px 16px rgba(161,98,107,.2);
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.hidden-message {
-  display: none;
-  text-align: center;
-  color: var(--rose);
-  font-weight: 700;
-}
-
-.hidden-message.show {
-  display: block;
-}
-
-.journal-label {
-  display: block;
-  margin: 20px 0;
-  color: #8e6469;
-  font-family: "Cormorant Garamond",serif;
-  font-size: 21px;
-  font-weight: 700;
-}
-
-textarea {
-  width: 100%;
-  min-height: 100px;
-  margin-top: 8px;
-  resize: vertical;
-  padding: 14px;
-  border: 1px solid #ead7d5;
-  border-radius: 14px;
-  outline: none;
-  color: var(--ink);
-  background: rgba(255,255,255,.75);
-  font-family: "DM Sans",sans-serif;
-}
-
-textarea:focus {
-  border-color: #d69ca2;
-  box-shadow: 0 0 0 3px rgba(214,156,162,.15);
-}
-
-.friend-note {
-  margin: 25px 0;
-  padding: 25px 20px;
-  border: 1px dashed #d7aeb0;
-  border-radius: 20px;
-  text-align: center;
-  background: #fff3f3;
-}
-
-.digital-bookmark {
-  width: min(75%,280px);
-  min-height: 510px;
-  margin: auto;
-  padding: 35px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  border: 1px solid #dfbfc0;
-  border-radius: 100px 100px 20px 20px;
-  text-align: center;
-  background:
-    radial-gradient(circle at 50% 8%,#fff 0 8%,transparent 8.5%),
-    linear-gradient(#f4d9db,#fff8f2);
-  box-shadow: 0 15px 25px rgba(104,72,72,.12);
-}
-
-.digital-bookmark > span {
-  font-size: 55px;
-}
-
-.digital-bookmark h2 {
-  font-size: 45px;
-}
-
-.garden-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 10px;
-  margin: 25px 0;
-}
-
-.garden-month {
-  aspect-ratio: 1/1;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 6px;
-  border: 1px dashed #dcc7bd;
-  border-radius: 18px;
-  color: #b8a5a1;
-  background: #f7eee8;
-}
-
-.garden-month span {
-  font-size: 27px;
-}
-
-.garden-month strong {
-  font-size: 9px;
-  letter-spacing: .15em;
-}
-
-.garden-month.active {
-  border-style: solid;
-  color: #a36b72;
-  background: #f5dcde;
-}
-
-.giant-gift {
-  font-size: 90px;
-  text-align: center;
-}
-
-.gift-card {
-  text-align: center;
-}
-
-.bloom-animation {
-  font-size: 120px;
-  animation: bloom 1.5s ease both, float 3s 1.5s infinite;
-}
-
-.celebration {
-  position: fixed;
-  z-index: 999;
-  inset: 0;
-  pointer-events: none;
-  display: none;
-  overflow: hidden;
-}
-
-.celebration.show {
-  display: block;
-}
-
-.celebration div {
-  position: absolute;
-  top: -10%;
-  font-size: 28px;
-  animation: fall 3s linear forwards;
-}
-
-.celebration div:nth-child(1){left:10%;animation-delay:.1s}
-.celebration div:nth-child(2){left:25%;animation-delay:.6s}
-.celebration div:nth-child(3){left:42%;animation-delay:.2s}
-.celebration div:nth-child(4){left:58%;animation-delay:.8s}
-.celebration div:nth-child(5){left:75%;animation-delay:.4s}
-.celebration div:nth-child(6){left:90%;animation-delay:.7s}
-
-@keyframes sealPulse {
-  0%,100% { box-shadow: 0 8px 18px rgba(113,63,69,.25), 0 0 0 0 rgba(199,127,137,.22); }
-  50% { box-shadow: 0 8px 18px rgba(113,63,69,.25), 0 0 0 12px rgba(199,127,137,0); }
-}
-
-@keyframes hint {
-  50% { transform: translateY(4px); opacity:.65; }
-}
-
-@keyframes float {
-  50% { transform: translateY(-7px) rotate(2deg); }
-}
-
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(25px); }
-  to { opacity:1; transform:none; }
-}
-
-@keyframes fadeIn {
-  from { opacity:0; }
-}
-
-@keyframes sheetUp {
-  from { opacity:0; transform:translateY(70px) scale(.97); }
-  to { opacity:1; transform:none; }
-}
-
-@keyframes bloom {
-  0% { transform:scale(.1) rotate(-20deg); opacity:0; }
-  60% { transform:scale(1.2) rotate(5deg); }
-  100% { transform:scale(1); opacity:1; }
-}
-
-@keyframes fall {
-  to { transform:translateY(115vh) rotate(500deg); opacity:.1; }
-}
-
-@media (min-width: 700px) {
-  .mail-grid {
-    grid-template-columns: repeat(3,1fr);
-  }
-
-  .mail-piece.large {
-    grid-column: span 2;
-  }
-
-  .modal {
-    align-items: center;
-  }
-
-  .modal-card {
-    border-radius: 30px;
-  }
-}
+    :root{
+      --pink-0:#fffafb;
+      --pink-1:#fdf1f2;
+      --pink-2:#f6dedf;
+      --pink-3:#edc8cb;
+      --rose:#b97079;
+      --rose-dark:#8d5960;
+      --beige:#eee2d6;
+      --beige-2:#e2d1c1;
+      --cream:#fffaf4;
+      --white:#fff;
+      --ink:#655154;
+      --muted:#9a8385;
+      --line:rgba(164,112,118,.18);
+      --shadow:0 18px 50px rgba(107,76,79,.13);
+      --soft-shadow:0 10px 25px rgba(107,76,79,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      overflow-x:hidden;
+      color:var(--ink);
+      font-family:"DM Sans",sans-serif;
+      background:
+        radial-gradient(circle at 8% 4%, rgba(255,255,255,.9) 0 7%, transparent 8%),
+        radial-gradient(circle at 90% 11%, rgba(255,255,255,.7) 0 5%, transparent 6%),
+        linear-gradient(150deg,#fffaf6 0%,#fbecee 45%,#f1e6db 100%);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.32;
+      background-image:
+        radial-gradient(circle,rgba(214,158,164,.38) 1px,transparent 1.2px),
+        radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1.2px);
+      background-size:32px 32px,46px 46px;
+      background-position:0 0,14px 18px;
+    }
+
+    button,input,textarea{font:inherit}
+    button{-webkit-tap-highlight-color:transparent}
+
+    .app{
+      position:relative;
+      z-index:2;
+      width:min(100%,900px);
+      margin:auto;
+      padding:max(28px,env(safe-area-inset-top)) 16px 90px;
+    }
+
+    .floating-decor{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .floaty{
+      position:absolute;
+      opacity:.5;
+      animation:drift 8s ease-in-out infinite;
+      filter:drop-shadow(0 4px 8px rgba(120,80,85,.08));
+    }
+
+    .floaty:nth-child(1){left:5%;top:16%;animation-delay:-1s}
+    .floaty:nth-child(2){right:6%;top:24%;animation-delay:-3s}
+    .floaty:nth-child(3){left:9%;top:68%;animation-delay:-5s}
+    .floaty:nth-child(4){right:10%;top:78%;animation-delay:-2s}
+    .floaty:nth-child(5){left:48%;top:7%;animation-delay:-4s}
+
+    .brand{
+      text-align:center;
+      padding:8px 0 22px;
+    }
+
+    .brand-mark{
+      width:62px;
+      height:62px;
+      margin:0 auto 8px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--line);
+      border-radius:50%;
+      background:rgba(255,255,255,.65);
+      box-shadow:var(--soft-shadow);
+      font-size:30px;
+      animation:bob 3s ease-in-out infinite;
+    }
+
+    .eyebrow{
+      margin:6px 0;
+      color:var(--rose);
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.23em;
+      text-transform:uppercase;
+    }
+
+    h1,h2,h3{
+      font-family:"Cormorant Garamond",serif;
+      color:#73585d;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:clamp(42px,11vw,66px);
+      line-height:.9;
+      font-weight:600;
+    }
+
+    .subtitle{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .theme-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:15px;
+      padding:9px 14px;
+      border:1px solid rgba(185,112,121,.18);
+      border-radius:999px;
+      color:var(--rose-dark);
+      background:rgba(255,255,255,.58);
+      box-shadow:0 5px 16px rgba(107,76,79,.06);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .mail-stage{
+      min-height:460px;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      perspective:1400px;
+      padding:48px 0 30px;
+    }
+
+    .envelope-wrap{
+      position:relative;
+      width:min(94vw,590px);
+    }
+
+    .envelope{
+      position:relative;
+      width:100%;
+      aspect-ratio:1.48/1;
+      transform-style:preserve-3d;
+      filter:drop-shadow(0 30px 30px rgba(94,63,67,.16));
+    }
+
+    .envelope-back{
+      position:absolute;
+      inset:0;
+      border-radius:22px;
+      border:1px solid rgba(157,101,107,.12);
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.25),transparent 45%),
+        linear-gradient(145deg,#f7e0e1,#edc9cd);
+    }
+
+    .letter-preview{
+      position:absolute;
+      z-index:3;
+      left:8%;
+      right:8%;
+      top:12%;
+      height:74%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      gap:5px;
+      padding:20px 20px 0;
+      border:1px solid #eadbd2;
+      border-radius:15px;
+      background:
+        radial-gradient(circle at 12% 14%,rgba(241,201,204,.35) 0 3px,transparent 4px),
+        linear-gradient(180deg,#fffdf9,#fff8f2);
+      box-shadow:0 4px 18px rgba(101,71,74,.1);
+      transition:transform 1.15s .42s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .letter-preview .tiny-flower{font-size:24px}
+    .letter-preview strong{
+      color:var(--rose);
+      font-family:"Cormorant Garamond",serif;
+      font-size:24px;
+    }
+    .letter-preview small{color:var(--muted)}
+
+    .flap{
+      position:absolute;
+      z-index:8;
+      top:0;
+      left:0;
+      width:100%;
+      height:60%;
+      transform-origin:top center;
+      transform-style:preserve-3d;
+      transition:transform 1.05s cubic-bezier(.2,.8,.2,1);
+      clip-path:polygon(0 0,100% 0,50% 100%);
+      border-radius:22px 22px 0 0;
+      background:linear-gradient(165deg,#fae7e8,#efcfd2);
+    }
+
+    .liner{
+      position:absolute;
+      inset:8px;
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      place-items:center;
+      opacity:.75;
+      font-size:19px;
+      background:
+        linear-gradient(rgba(255,250,244,.94),rgba(255,250,244,.94)),
+        repeating-linear-gradient(45deg,#f5dfe1 0 8px,#fff6f1 8px 16px);
+      clip-path:polygon(0 0,100% 0,50% 100%);
+    }
+
+    .envelope-front{
+      position:absolute;
+      inset:0;
+      z-index:5;
+      overflow:hidden;
+      border-radius:22px;
+      background:
+        linear-gradient(31deg,transparent 49.6%,rgba(197,145,150,.24) 50%,transparent 50.6%),
+        linear-gradient(-31deg,transparent 49.6%,rgba(197,145,150,.24) 50%,transparent 50.6%),
+        linear-gradient(145deg,#f8e4e5,#efcfd2);
+      clip-path:polygon(0 0,50% 46%,100% 0,100% 100%,0 100%);
+    }
+
+    .address-label{
+      position:absolute;
+      left:50%;
+      top:60%;
+      transform:translate(-50%,-50%) rotate(-.5deg);
+      width:58%;
+      padding:18px 12px;
+      text-align:center;
+      border:1px solid #e3cdce;
+      border-radius:13px;
+      background:rgba(255,250,245,.93);
+      box-shadow:0 7px 16px rgba(105,74,78,.08);
+    }
+
+    .address-label span,
+    .address-label small{
+      display:block;
+      font-size:9px;
+      letter-spacing:.18em;
+    }
+
+    .address-label strong{
+      display:block;
+      margin:4px 0;
+      color:#a86c74;
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(20px,5vw,29px);
+    }
+
+    .stamp{
+      position:absolute;
+      top:8%;
+      right:7%;
+      width:66px;
+      height:78px;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      border:2px dashed #c8959b;
+      background:#fff8f1;
+      color:#a36971;
+      transform:rotate(4deg);
+    }
+    .stamp span{font-size:24px}
+    .stamp small{text-align:center;font-size:7px;font-weight:700;letter-spacing:.1em}
+
+    .postmark{
+      position:absolute;
+      top:18%;
+      right:21%;
+      padding:9px 6px;
+      border:1px solid rgba(137,92,98,.35);
+      border-radius:50%;
+      color:rgba(137,92,98,.5);
+      font-size:8px;
+      transform:rotate(-8deg);
+    }
+
+    .seal{
+      position:absolute;
+      z-index:10;
+      left:50%;
+      top:44%;
+      width:98px;
+      height:98px;
+      transform:translate(-50%,-50%);
+      display:grid;
+      place-items:center;
+      align-content:center;
+      border:5px double rgba(255,255,255,.48);
+      border-radius:50%;
+      color:white;
+      background:radial-gradient(circle at 35% 30%,#e4a5ad,#bd747f 58%,#9f5963);
+      box-shadow:0 8px 20px rgba(110,63,69,.22);
+      cursor:pointer;
+      animation:sealPulse 2.1s infinite;
+      transition:transform .3s,opacity .4s;
+    }
+
+    .seal span{font-size:26px}
+    .seal small{
+      text-align:center;
+      font-size:7px;
+      font-weight:700;
+      line-height:1.15;
+      letter-spacing:.05em;
+    }
+
+    .envelope.open .flap{
+      transform:rotateX(178deg);
+      z-index:1;
+    }
+
+    .envelope.open .letter-preview{
+      transform:translateY(-52%);
+    }
+
+    .envelope.open .seal{
+      transform:translate(-50%,-50%) scale(.15) rotate(30deg);
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .tap-hint{
+      margin:36px 0 0;
+      color:var(--rose);
+      text-align:center;
+      font-size:13px;
+      animation:hint 2s ease-in-out infinite;
+    }
+
+    .delivery-note{
+      display:none;
+      margin:18px auto 0;
+      width:min(92%,520px);
+      padding:12px 15px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      text-align:center;
+      color:#8f666b;
+      background:rgba(255,255,255,.62);
+      box-shadow:var(--soft-shadow);
+      animation:fadeUp .5s ease both;
+    }
+
+    .delivery-note.show{display:block}
+
+    .mailbox{
+      padding-top:24px;
+      animation:fadeUp .8s ease both;
+    }
+
+    .hidden{display:none!important}
+
+    .section-heading{
+      text-align:center;
+      margin:20px 0 25px;
+    }
+
+    .section-heading h2{
+      margin:3px 0;
+      font-size:38px;
+      font-weight:600;
+    }
+
+    .section-heading p:last-child{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .progress-shell{
+      margin:0 auto 22px;
+      width:min(100%,640px);
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.62);
+      box-shadow:var(--soft-shadow);
+    }
+
+    .progress-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .progress-track{
+      height:10px;
+      overflow:hidden;
+      border-radius:999px;
+      background:#eadfd8;
+    }
+
+    .progress-fill{
+      width:0%;
+      height:100%;
+      border-radius:inherit;
+      background:linear-gradient(90deg,#e7abb2,#b96f79);
+      transition:width .45s ease;
+    }
+
+    .mail-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:13px;
+    }
+
+    .mail-piece{
+      position:relative;
+      min-height:162px;
+      padding:18px 14px 16px;
+      overflow:hidden;
+      text-align:left;
+      border:1px solid rgba(177,128,133,.18);
+      border-radius:24px;
+      color:var(--ink);
+      background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,244,242,.9));
+      box-shadow:var(--soft-shadow);
+      cursor:pointer;
+      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+    }
+
+    .mail-piece::after{
+      content:"";
+      position:absolute;
+      inset:auto -25px -35px auto;
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      background:rgba(244,214,216,.42);
+    }
+
+    .mail-piece:nth-child(3n+2){
+      background:linear-gradient(145deg,#f8e3e4,#fff8f4);
+    }
+
+    .mail-piece:nth-child(4n){
+      background:linear-gradient(145deg,#f0e5da,#fffaf6);
+    }
+
+    .mail-piece:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 30px rgba(107,76,79,.11);
+      border-color:rgba(177,128,133,.28);
+    }
+
+    .mail-piece:active{transform:scale(.98)}
+
+    .mail-piece.large{
+      grid-column:span 2;
+      min-height:138px;
+    }
+
+    .piece-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:8px;
+      margin-bottom:13px;
+    }
+
+    .piece-icon{
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(181,126,132,.14);
+      border-radius:16px;
+      background:rgba(255,255,255,.56);
+      font-size:24px;
+    }
+
+    .piece-number{
+      color:#bd8f94;
+      font-family:"Cormorant Garamond",serif;
+      font-size:16px;
+    }
+
+    .mail-piece strong{
+      position:relative;
+      z-index:1;
+      display:block;
+      color:#76585c;
+      font-family:"Cormorant Garamond",serif;
+      font-size:23px;
+      line-height:1;
+    }
+
+    .mail-piece small{
+      position:relative;
+      z-index:1;
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .open-badge{
+      position:relative;
+      z-index:1;
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      margin-top:12px;
+      padding:6px 9px;
+      border-radius:999px;
+      color:#9f6570;
+      background:rgba(255,255,255,.62);
+      font-size:10px;
+      font-weight:700;
+    }
+
+    .mail-piece.locked{
+      opacity:.62;
+      filter:grayscale(.2);
+    }
+
+    .modal{
+      position:fixed;
+      z-index:100;
+      inset:0;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding:15px 11px max(12px,env(safe-area-inset-bottom));
+      background:rgba(76,56,58,.36);
+      backdrop-filter:blur(9px);
+    }
+
+    .modal.show{
+      display:flex;
+      animation:fadeIn .22s ease;
+    }
+
+    .modal-card{
+      position:relative;
+      width:min(100%,660px);
+      max-height:90vh;
+      overflow-y:auto;
+      padding:32px 22px 38px;
+      border:1px solid rgba(180,132,135,.22);
+      border-radius:32px 32px 20px 20px;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 90% 7%,rgba(245,218,219,.55) 0 48px,transparent 49px),
+        linear-gradient(180deg,#fffdf9,#fff8f3);
+      box-shadow:var(--shadow);
+      animation:sheetUp .36s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .modal-card h2{
+      margin:5px 0 14px;
+      font-size:clamp(36px,9vw,50px);
+      line-height:.95;
+      font-weight:600;
+    }
+
+    .modal-card p{line-height:1.75}
+
+    .close{
+      position:sticky;
+      z-index:5;
+      top:0;
+      float:right;
+      width:40px;
+      height:40px;
+      border:1px solid rgba(184,122,129,.13);
+      border-radius:50%;
+      color:#95676c;
+      background:#f8e4e5;
+      font-size:25px;
+      cursor:pointer;
+    }
+
+    .letter-paper{
+      background:
+        linear-gradient(rgba(255,250,245,.97),rgba(255,250,245,.97)),
+        repeating-linear-gradient(0deg,transparent 0 31px,#eadfda 32px);
+    }
+
+    .divider{
+      margin:18px 0;
+      text-align:center;
+      letter-spacing:.55em;
+    }
+
+    blockquote{
+      margin:24px 0;
+      padding:22px 18px;
+      border:1px solid #ead5d5;
+      border-radius:20px;
+      color:#8c6066;
+      background:#fff1f2;
+      font-family:"Cormorant Garamond",serif;
+      font-size:25px;
+      font-weight:600;
+      text-align:center;
+    }
+
+    blockquote cite{
+      display:block;
+      margin-top:10px;
+      font-family:"DM Sans",sans-serif;
+      font-size:11px;
+      font-style:normal;
+      letter-spacing:.11em;
+    }
+
+    .big-message{
+      color:#ab6b74;
+      font-family:"Cormorant Garamond",serif;
+      font-size:42px;
+      font-weight:700;
+      text-align:center;
+    }
+
+    .script-line{
+      color:#a66a72;
+      font-family:"Cormorant Garamond",serif;
+      font-size:26px;
+      font-style:italic;
+    }
+
+    .soft-note{
+      margin:18px 0;
+      padding:14px;
+      border-radius:15px;
+      color:var(--muted);
+      background:#f4e9e0;
+      font-size:12px;
+    }
+
+    .arabic{
+      margin:25px 0 10px;
+      color:#8d6267;
+      font-size:31px;
+      line-height:1.9;
+      text-align:center;
+    }
+
+    .transliteration{
+      text-align:center;
+      color:#a16b72;
+      font-style:italic;
+    }
+
+    .collectible{text-align:center}
+
+    .giant-flower{
+      margin:10px 0;
+      font-size:100px;
+      text-align:center;
+      animation:bob 3s infinite;
+    }
+
+    .theme-word{
+      color:var(--rose);
+      font-weight:700;
+      letter-spacing:.3em;
+    }
+
+    .affirmation{
+      margin-top:22px;
+      padding:17px;
+      border-radius:18px;
+      color:#97656d;
+      background:#f5dfe1;
+      font-family:"Cormorant Garamond",serif;
+      font-size:25px;
+      font-weight:700;
+      text-align:center;
+    }
+
+    .deeds{
+      display:grid;
+      gap:10px;
+      margin:20px 0;
+    }
+
+    .deeds label{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      padding:14px;
+      border:1px solid #ecd9d8;
+      border-radius:16px;
+      background:rgba(255,255,255,.72);
+      cursor:pointer;
+    }
+
+    .deeds input{
+      width:21px;
+      height:21px;
+      flex:0 0 auto;
+      accent-color:#c47d87;
+    }
+
+    .deeds label:has(input:checked){
+      background:#f8e1e3;
+    }
+
+    .bloom-button{
+      width:100%;
+      margin-top:14px;
+      padding:15px 16px;
+      border:1px solid rgba(139,86,94,.12);
+      border-radius:18px;
+      color:white;
+      background:linear-gradient(145deg,#d8939b,#b96e79);
+      box-shadow:0 8px 17px rgba(151,92,101,.18);
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .17s ease,filter .17s ease;
+    }
+
+    .bloom-button:active{transform:scale(.98)}
+    .bloom-button.secondary{
+      color:#9c6770;
+      background:#f9e7e8;
+      box-shadow:none;
+    }
+
+    .hidden-message{
+      display:none;
+      text-align:center;
+      color:var(--rose);
+      font-weight:700;
+    }
+
+    .hidden-message.show{display:block}
+
+    .journal-label{
+      display:block;
+      margin:18px 0;
+      color:#8c6268;
+      font-family:"Cormorant Garamond",serif;
+      font-size:21px;
+      font-weight:700;
+    }
+
+    textarea{
+      width:100%;
+      min-height:100px;
+      margin-top:8px;
+      resize:vertical;
+      padding:14px;
+      border:1px solid #ead7d5;
+      border-radius:15px;
+      outline:none;
+      color:var(--ink);
+      background:rgba(255,255,255,.76);
+    }
+
+    textarea:focus{
+      border-color:#d49aa1;
+      box-shadow:0 0 0 3px rgba(212,154,161,.14);
+    }
+
+    .counter-card{
+      margin:18px 0;
+      padding:20px;
+      border:1px solid #ead7d8;
+      border-radius:22px;
+      text-align:center;
+      background:#fff2f3;
+    }
+
+    .counter-number{
+      display:block;
+      margin:8px 0;
+      color:#9f6770;
+      font-family:"Cormorant Garamond",serif;
+      font-size:56px;
+      line-height:1;
+      font-weight:700;
+    }
+
+    .counter-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+      margin-top:12px;
+    }
+
+    .mini-button{
+      padding:12px;
+      border:1px solid #dfc6c8;
+      border-radius:14px;
+      color:#945f67;
+      background:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .mini-button.primary{
+      color:#fff;
+      background:#bd7580;
+      border-color:#bd7580;
+    }
+
+    .reveal-card{
+      position:relative;
+      min-height:210px;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      padding:20px;
+      border:1px dashed #d8b5b8;
+      border-radius:23px;
+      background:linear-gradient(145deg,#f8e3e5,#fff9f4);
+      text-align:center;
+    }
+
+    .reveal-cover{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      gap:7px;
+      padding:20px;
+      background:linear-gradient(145deg,#edcdd0,#f9e7e8);
+      transition:transform .65s cubic-bezier(.2,.8,.2,1),opacity .4s;
+      cursor:pointer;
+    }
+
+    .reveal-card.revealed .reveal-cover{
+      transform:translateY(-105%);
+      opacity:.2;
+    }
+
+    .friend-note{
+      margin:22px 0;
+      padding:22px 18px;
+      border:1px dashed #d6afb2;
+      border-radius:20px;
+      text-align:center;
+      background:#fff2f3;
+    }
+
+    .garden-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin:24px 0;
+    }
+
+    .garden-month{
+      aspect-ratio:1/1;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      gap:6px;
+      border:1px dashed #dcc6bc;
+      border-radius:18px;
+      color:#b4a19f;
+      background:#f7eee8;
+    }
+
+    .garden-month span{font-size:28px}
+    .garden-month strong{font-size:9px;letter-spacing:.15em}
+
+    .garden-month.active{
+      border-style:solid;
+      color:#a16a72;
+      background:#f5dcdf;
+    }
+
+    .gift-card{text-align:center}
+    .giant-gift{font-size:92px;text-align:center}
+
+    .bloom-animation{
+      font-size:120px;
+      animation:bloom 1.5s ease both,bob 3s 1.5s infinite;
+    }
+
+    .celebration{
+      position:fixed;
+      z-index:999;
+      inset:0;
+      display:none;
+      overflow:hidden;
+      pointer-events:none;
+    }
+
+    .celebration.show{display:block}
+
+    .celebration div{
+      position:absolute;
+      top:-10%;
+      font-size:28px;
+      animation:fall 3s linear forwards;
+    }
+
+    .celebration div:nth-child(1){left:8%;animation-delay:.1s}
+    .celebration div:nth-child(2){left:23%;animation-delay:.5s}
+    .celebration div:nth-child(3){left:40%;animation-delay:.2s}
+    .celebration div:nth-child(4){left:58%;animation-delay:.8s}
+    .celebration div:nth-child(5){left:76%;animation-delay:.4s}
+    .celebration div:nth-child(6){left:92%;animation-delay:.7s}
+
+    @keyframes sealPulse{
+      0%,100%{box-shadow:0 8px 20px rgba(110,63,69,.22),0 0 0 0 rgba(199,127,137,.2)}
+      50%{box-shadow:0 8px 20px rgba(110,63,69,.22),0 0 0 13px rgba(199,127,137,0)}
+    }
+
+    @keyframes hint{50%{transform:translateY(4px);opacity:.68}}
+    @keyframes bob{50%{transform:translateY(-7px) rotate(2deg)}}
+    @keyframes drift{50%{transform:translateY(-14px) rotate(7deg)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}}
+    @keyframes sheetUp{from{opacity:0;transform:translateY(70px) scale(.97)}to{opacity:1;transform:none}}
+    @keyframes bloom{0%{transform:scale(.1) rotate(-20deg);opacity:0}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1);opacity:1}}
+    @keyframes fall{to{transform:translateY(115vh) rotate(500deg);opacity:.1}}
+
+    @media(min-width:700px){
+      .mail-grid{grid-template-columns:repeat(3,1fr)}
+      .mail-piece.large{grid-column:span 2}
+      .modal{align-items:center}
+      .modal-card{border-radius:30px}
+    }
   </style>
 </head>
+
 <body>
+  <div class="floating-decor" aria-hidden="true">
+    <div class="floaty">🌸</div>
+    <div class="floaty">✦</div>
+    <div class="floaty">🌷</div>
+    <div class="floaty">☾</div>
+    <div class="floaty">💌</div>
+  </div>
+
   <main class="app">
     <header class="brand">
-      <div class="brand-flower">🌷</div>
+      <div class="brand-mark">🌷</div>
       <p class="eyebrow">ISLAMIC BLOOM</p>
       <h1>August Snail Mail</h1>
       <p class="subtitle">A little iman delivered to your heart.</p>
+      <div class="theme-pill">☾ August Theme: TAWAKKUL</div>
     </header>
 
     <section class="mail-stage">
-      <div class="envelope" id="envelope">
-        <div class="envelope-back"></div>
+      <div class="envelope-wrap">
+        <div class="envelope" id="envelope">
+          <div class="envelope-back"></div>
 
-        <div class="letter-preview">
-          <span>💌</span>
-          <strong>YOU'VE GOT MAIL</strong>
-          <small>Come Back to Allah</small>
-        </div>
+          <div class="letter-preview">
+            <span class="tiny-flower">💌</span>
+            <strong>YOU'VE GOT MAIL</strong>
+            <small>Trust what Allah has written.</small>
+          </div>
 
-        <div class="flap">
-          <div class="liner">
-            <span>🌸</span><span>✦</span><span>🌷</span><span>☾</span>
-            <span>✦</span><span>💌</span><span>🌸</span><span>☾</span>
+          <div class="flap">
+            <div class="liner">
+              <span>🌸</span><span>✦</span><span>🌷</span><span>☾</span><span>💌</span>
+              <span>✦</span><span>🌸</span><span>☾</span><span>🌷</span><span>✦</span>
+            </div>
+          </div>
+
+          <div class="envelope-front">
+            <div class="stamp">
+              <span>🌷</span>
+              <small>BLOOM<br>MAIL</small>
+            </div>
+
+            <div class="postmark">AUG • 2026</div>
+
+            <div class="address-label">
+              <span>SPECIAL DELIVERY</span>
+              <strong>FOR YOUR HEART</strong>
+              <small>August • Tawakkul</small>
+            </div>
+
+            <button class="seal" id="seal" type="button" aria-label="Open envelope">
+              <span>🌷</span>
+              <small>OPEN WITH<br>BISMILLAH</small>
+            </button>
           </div>
         </div>
 
-        <div class="envelope-front">
-          <div class="stamp">
-            <span>🌷</span>
-            <small>BLOOM<br>MAIL</small>
-          </div>
-          <div class="postmark">AUG • 2026</div>
-
-          <div class="address-label">
-            <span>SPECIAL DELIVERY</span>
-            <strong>FOR YOUR HEART</strong>
-            <small>August 2026</small>
-          </div>
-
-          <button class="seal" id="seal" type="button" aria-label="Open envelope">
-            <span>🌷</span>
-            <small>OPEN WITH<br>BISMILLAH</small>
-          </button>
-        </div>
+        <p class="tap-hint" id="tapHint">Tap the seal to open your August mail 💌</p>
+        <div class="delivery-note" id="deliveryNote">Your August mail has arrived. Open each little piece when you're ready. 🌸</div>
       </div>
-
-      <p class="tap-hint" id="tapHint">Tap the seal to open your August mail 💌</p>
     </section>
 
     <section class="mailbox hidden" id="mailbox">
       <div class="section-heading">
         <p class="eyebrow">AUGUST DELIVERY</p>
         <h2>Your mail is here 💌</h2>
-        <p>Tap each piece to open it.</p>
+        <p>Everything inside this envelope is yours to explore.</p>
+      </div>
+
+      <div class="progress-shell">
+        <div class="progress-top">
+          <span>August Bloom Progress</span>
+          <strong id="progressText">0 / 7 deeds</strong>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
       </div>
 
       <div class="mail-grid">
         <button class="mail-piece large" data-modal="letterModal">
-          <span class="piece-icon">💌</span>
-          <span class="piece-number">01</span>
+          <div class="piece-top"><span class="piece-icon">💌</span><span class="piece-number">01</span></div>
           <strong>August Letter</strong>
-          <small>Come Back to Allah</small>
+          <small>Tawakkul — trusting Allah while you still do your part.</small>
+          <span class="open-badge">Open letter →</span>
         </button>
 
         <button class="mail-piece" data-modal="bloomModal">
-          <span class="piece-icon">🌷</span>
-          <span class="piece-number">02</span>
+          <div class="piece-top"><span class="piece-icon">🌷</span><span class="piece-number">02</span></div>
           <strong>August Bloom</strong>
-          <small>Blush Tulip</small>
+          <small>Blush Tulip • Tawakkul</small>
+          <span class="open-badge">Collect →</span>
         </button>
 
         <button class="mail-piece" data-modal="duaModal">
-          <span class="piece-icon">🤲</span>
-          <span class="piece-number">03</span>
+          <div class="piece-top"><span class="piece-icon">🤲</span><span class="piece-number">03</span></div>
           <strong>Dua Card</strong>
-          <small>Istighfar</small>
+          <small>For trust, reliance and calm.</small>
+          <span class="open-badge">Open →</span>
         </button>
 
         <button class="mail-piece" data-modal="reminderModal">
-          <span class="piece-icon">🕊️</span>
-          <span class="piece-number">04</span>
+          <div class="piece-top"><span class="piece-icon">🕊️</span><span class="piece-number">04</span></div>
           <strong>Keep This Close</strong>
-          <small>Qur'an 39:53</small>
+          <small>Qur'an 65:3</small>
+          <span class="open-badge">Reveal →</span>
         </button>
 
         <button class="mail-piece large" data-modal="deedsModal">
-          <span class="piece-icon">🌸</span>
-          <span class="piece-number">05</span>
-          <strong>7 Little Deeds</strong>
-          <small id="deedProgressLabel">0 of 7 bloomed</small>
+          <div class="piece-top"><span class="piece-icon">🌸</span><span class="piece-number">05</span></div>
+          <strong>7 Tawakkul Deeds</strong>
+          <small id="deedProgressLabel">0 of 7 completed</small>
+          <span class="open-badge">Start challenge →</span>
         </button>
 
-        <button class="mail-piece" data-modal="secretModal">
-          <span class="piece-icon">🤫</span>
-          <span class="piece-number">06</span>
-          <strong>Secret Deed</strong>
-          <small>Between you and Allah</small>
+        <button class="mail-piece" data-modal="dhikrModal">
+          <div class="piece-top"><span class="piece-icon">📿</span><span class="piece-number">06</span></div>
+          <strong>Trust Counter</strong>
+          <small>A tiny interactive dhikr moment.</small>
+          <span class="open-badge">Tap →</span>
         </button>
 
         <button class="mail-piece" data-modal="openWhenModal">
-          <span class="piece-icon">💗</span>
-          <span class="piece-number">07</span>
+          <div class="piece-top"><span class="piece-icon">💗</span><span class="piece-number">07</span></div>
           <strong>Open When...</strong>
-          <small>You feel far from Allah</small>
+          <small>You are overthinking the future.</small>
+          <span class="open-badge">Open envelope →</span>
         </button>
 
         <button class="mail-piece" data-modal="reflectionModal">
-          <span class="piece-icon">💭</span>
-          <span class="piece-number">08</span>
+          <div class="piece-top"><span class="piece-icon">💭</span><span class="piece-number">08</span></div>
           <strong>Quiet Reflection</strong>
-          <small>A moment for your heart</small>
+          <small>Write, save and return later.</small>
+          <span class="open-badge">Reflect →</span>
+        </button>
+
+        <button class="mail-piece" data-modal="secretModal">
+          <div class="piece-top"><span class="piece-icon">🤫</span><span class="piece-number">09</span></div>
+          <strong>Secret Deed</strong>
+          <small>One act only Allah needs to know.</small>
+          <span class="open-badge">Open →</span>
         </button>
 
         <button class="mail-piece" data-modal="passModal">
-          <span class="piece-icon">💕</span>
-          <span class="piece-number">09</span>
+          <div class="piece-top"><span class="piece-icon">💕</span><span class="piece-number">10</span></div>
           <strong>Pass It On</strong>
-          <small>For another Muslimah</small>
-        </button>
-
-        <button class="mail-piece" data-modal="bookmarkModal">
-          <span class="piece-icon">🔖</span>
-          <span class="piece-number">10</span>
-          <strong>Bookmark</strong>
-          <small>One sincere step</small>
+          <small>A reminder for another Muslimah.</small>
+          <span class="open-badge">Open →</span>
         </button>
 
         <button class="mail-piece large" data-modal="gardenModal">
-          <span class="piece-icon">🌿</span>
-          <span class="piece-number">11</span>
+          <div class="piece-top"><span class="piece-icon">🌿</span><span class="piece-number">11</span></div>
           <strong>My Bloom Garden</strong>
-          <small>Collect all 12 blooms</small>
+          <small>Your August bloom changes when you finish all 7 deeds.</small>
+          <span class="open-badge">Visit garden →</span>
         </button>
 
         <button class="mail-piece locked" id="giftPiece" data-modal="giftModal">
-          <span class="piece-icon" id="giftIcon">🎁</span>
-          <span class="piece-number">12</span>
+          <div class="piece-top"><span class="piece-icon" id="giftIcon">🎁</span><span class="piece-number">12</span></div>
           <strong>August Surprise</strong>
-          <small id="giftLabel">Complete 7 deeds to unlock</small>
+          <small id="giftLabel">Complete all 7 deeds to unlock.</small>
+          <span class="open-badge">Locked ✦</span>
         </button>
       </div>
     </section>
@@ -1010,16 +1134,44 @@ textarea:focus {
     <div class="modal-card letter-paper">
       <button class="close" aria-label="Close">×</button>
       <p class="eyebrow">ISLAMIC BLOOM • AUGUST</p>
-      <h2>Come Back to Allah</h2>
-      <div class="divider">🌷</div>
+      <h2>Tawakkul</h2>
+      <div class="divider">☾ 🌷 ☾</div>
+
       <p>Dear beautiful soul,</p>
-      <p>Maybe you have been feeling distant lately. Maybe your prayers have felt rushed, Qur'an became “tomorrow”, or life simply became so busy that your heart began to miss something.</p>
-      <p>This month's letter carries one gentle reminder:</p>
-      <p class="big-message">Come back.</p>
-      <p>Not when you become perfect. Not once everything is fixed. Begin now, with one sincere step.</p>
-      <blockquote>“Do not lose hope in Allah's mercy.”<cite>Qur'an 39:53</cite></blockquote>
-      <p>Make sincere tawbah. Say <em>Astaghfirullah</em>. Open the Qur'an. Make one honest dua. Pray the next salah with your heart present.</p>
-      <p class="script-line">Your garden doesn't bloom all at once. Neither do you.</p>
+
+      <p>There are seasons in life when your mind wants answers before Allah has shown you the next page. You want to know how something will work out, when the door will open, whether the thing you are praying for will come, and what you are supposed to do if it doesn't happen the way you imagined.</p>
+
+      <p>That is where tawakkul becomes more than a word we say. Tawakkul is choosing to rely upon Allah while still taking the steps that are yours to take.</p>
+
+      <p>You make the call. You submit the application. You attend the appointment. You apologise. You plan. You work. You make dua. And then, after doing what you can, you stop demanding that your heart control what only Allah controls.</p>
+
+      <blockquote>
+        “And whoever relies upon Allah — then He is sufficient for him.”
+        <cite>Qur'an 65:3</cite>
+      </blockquote>
+
+      <p>Sometimes we confuse tawakkul with doing nothing. But trust does not mean abandoning effort. It means your effort is in your hands while the outcome is left with Allah.</p>
+
+      <p>Maybe this month there is something you keep replaying in your head. A decision. A worry. A person. Money. Family. Health. A door that has not opened yet. Something you desperately want to know the ending of.</p>
+
+      <p>What if August became the month you practised saying:</p>
+
+      <p class="big-message">“I will do my part, and I will trust Allah with the rest.”</p>
+
+      <p>You are allowed to plan without believing your plan controls the future. You are allowed to hope without making your peace depend on one exact outcome. You are allowed to ask Allah again and again while knowing His wisdom is greater than your timing.</p>
+
+      <p>There will be days when tawakkul feels peaceful. There will also be days when it feels like repeatedly pulling your thoughts back from fear. Both can still be acts of worship when you keep returning your heart to Allah.</p>
+
+      <p>So this month, when your mind races ahead, bring it back to today.</p>
+
+      <p>What can I do today?</p>
+      <p>What can I make dua for today?</p>
+      <p>What am I carrying that was never mine to control?</p>
+
+      <p class="script-line">You do not need to see the whole road to trust the One who sees it completely.</p>
+
+      <p>May Allah give your heart calm in what you cannot control, wisdom in what you can change, and beautiful reliance upon Him in both.</p>
+
       <p>With love,<br><strong>Islamic Bloom 🌸</strong></p>
     </div>
   </div>
@@ -1030,20 +1182,21 @@ textarea:focus {
       <p class="eyebrow">AUGUST BLOOM • 01</p>
       <div class="giant-flower">🌷</div>
       <h2>The Blush Tulip</h2>
-      <p class="theme-word">RETURN</p>
-      <p>Your August flower is a collectible reminder of this month's journey.</p>
-      <div class="affirmation">I can begin again.</div>
+      <p class="theme-word">TAWAKKUL</p>
+      <p>Your August bloom is your collectible reminder for this month's journey. The flower is decorative and is not assigned a religious meaning.</p>
+      <div class="affirmation">Do your part. Trust Allah with the rest.</div>
     </div>
   </div>
 
   <div class="modal" id="duaModal">
     <div class="modal-card">
       <button class="close" aria-label="Close">×</button>
-      <p class="eyebrow">DUA OF THE MONTH</p>
-      <h2>A Dua for Forgiveness</h2>
-      <div class="arabic" dir="rtl">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</div>
-      <p class="transliteration">Astaghfirullaha wa atubu ilayh</p>
-      <p><strong>I seek Allah's forgiveness and repent to Him.</strong></p>
+      <p class="eyebrow">AUGUST DUA CARD</p>
+      <h2>For Reliance Upon Allah</h2>
+      <div class="arabic" dir="rtl">حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ</div>
+      <p class="transliteration">Hasbiyallahu la ilaha illa Huwa, 'alayhi tawakkaltu.</p>
+      <p style="text-align:center"><strong>Allah is sufficient for me. There is no deity except Him. Upon Him I rely.</strong></p>
+      <div class="soft-note">Based on Qur'an 9:129. Keep the Arabic and translation together if you later turn this into a printable card.</div>
     </div>
   </div>
 
@@ -1051,41 +1204,68 @@ textarea:focus {
     <div class="modal-card">
       <button class="close" aria-label="Close">×</button>
       <p class="eyebrow">KEEP THIS CLOSE</p>
-      <h2>Don't Despair.</h2>
-      <blockquote>“Do not lose hope in Allah's mercy.”<cite>Qur'an 39:53</cite></blockquote>
-      <p>Your mistakes should lead you toward sincere repentance — not convince you to stay away.</p>
+      <h2>What Is Meant For You Is Not Outside Allah's Control.</h2>
+
+      <div class="reveal-card" id="revealCard">
+        <div>
+          <blockquote style="margin:0">
+            “And whoever relies upon Allah — then He is sufficient for him.”
+            <cite>Qur'an 65:3</cite>
+          </blockquote>
+        </div>
+
+        <button class="reveal-cover" id="revealCover" type="button">
+          <span style="font-size:38px">💌</span>
+          <strong style="font-family:'Cormorant Garamond',serif;font-size:27px;color:#8f6067">Tap to reveal your August reminder</strong>
+          <small style="color:#9d7d81">A little card for the days your mind won't switch off.</small>
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="modal" id="deedsModal">
     <div class="modal-card">
       <button class="close" aria-label="Close">×</button>
-      <p class="eyebrow">AUGUST IMAN CHALLENGE</p>
-      <h2>7 Little Deeds 🌸</h2>
+      <p class="eyebrow">AUGUST CHALLENGE</p>
+      <h2>7 Little Tawakkul Deeds 🌸</h2>
+      <p>Not seven huge goals. Seven small ways to practise reliance on Allah while still doing your part.</p>
+
       <div class="deeds">
-        <label><input type="checkbox" class="deed"><span>Make sincere tawbah about something sitting on your heart.</span></label>
-        <label><input type="checkbox" class="deed"><span>Pray one salah with your phone completely out of reach.</span></label>
-        <label><input type="checkbox" class="deed"><span>Read at least one page of Qur'an slowly.</span></label>
-        <label><input type="checkbox" class="deed"><span>Give something quietly in charity, even if it is small.</span></label>
-        <label><input type="checkbox" class="deed"><span>Make dua for someone without telling them.</span></label>
-        <label><input type="checkbox" class="deed"><span>Spend five quiet minutes making dhikr.</span></label>
-        <label><input type="checkbox" class="deed"><span>Restart one neglected good habit.</span></label>
+        <label><input type="checkbox" class="deed"><span>Make dua about one worry, then deliberately stop rehearsing every possible outcome for five minutes.</span></label>
+        <label><input type="checkbox" class="deed"><span>Take one practical step toward something you have been worrying about.</span></label>
+        <label><input type="checkbox" class="deed"><span>Pray one salah slowly and give Allah your full attention.</span></label>
+        <label><input type="checkbox" class="deed"><span>Write down one thing you cannot control and one thing you can do today.</span></label>
+        <label><input type="checkbox" class="deed"><span>Read Qur'an for at least five quiet minutes.</span></label>
+        <label><input type="checkbox" class="deed"><span>Give a small charity or do a quiet act of kindness without seeking recognition.</span></label>
+        <label><input type="checkbox" class="deed"><span>Before sleeping, make dua and consciously hand one unresolved matter back to Allah.</span></label>
       </div>
-      <div class="progress-wrap">
-        <div class="progress-bar"><div id="progressFill"></div></div>
-        <strong id="modalProgress">0 / 7 BLOOMED</strong>
+
+      <div class="progress-shell" style="margin-top:15px">
+        <div class="progress-top"><span>Challenge progress</span><strong id="modalProgress">0 / 7</strong></div>
+        <div class="progress-track"><div class="progress-fill" id="modalProgressFill"></div></div>
       </div>
     </div>
   </div>
 
-  <div class="modal" id="secretModal">
+  <div class="modal" id="dhikrModal">
     <div class="modal-card">
       <button class="close" aria-label="Close">×</button>
-      <p class="eyebrow">SHHH...</p>
-      <h2>The Secret Deed 🤫</h2>
-      <p>Do one genuinely good thing this month that you deliberately do not tell anyone about.</p>
-      <button class="bloom-button" id="secretDone">🌸 I completed my secret deed</button>
-      <p id="secretMessage" class="hidden-message">Your little secret bloom has been marked. 🌸</p>
+      <p class="eyebrow">A TINY PAUSE</p>
+      <h2>Trust Counter 📿</h2>
+      <p>Tap slowly. Don't race the number. Use it as a tiny moment to settle your mind and remember Allah.</p>
+
+      <div class="counter-card">
+        <small style="color:#9d7e82">HASBIYALLAH</small>
+        <span class="counter-number" id="dhikrCount">0</span>
+        <small style="color:#9d7e82">Allah is sufficient for me.</small>
+
+        <div class="counter-actions">
+          <button class="mini-button primary" id="dhikrAdd" type="button">+ Tap once</button>
+          <button class="mini-button" id="dhikrReset" type="button">Reset</button>
+        </div>
+      </div>
+
+      <div class="soft-note" id="dhikrNote">A calm heart is not measured by a number. This is simply a gentle interactive reminder.</div>
     </div>
   </div>
 
@@ -1093,10 +1273,28 @@ textarea:focus {
     <div class="modal-card">
       <button class="close" aria-label="Close">×</button>
       <p class="eyebrow">OPEN WHEN...</p>
-      <h2>You Feel Far From Allah</h2>
-      <blockquote>“Do not lose hope in Allah's mercy.”<cite>Qur'an 39:53</cite></blockquote>
-      <p>Make wudu. Pray. Say <em>Astaghfirullah</em>. Make sincere dua. Open your Qur'an.</p>
-      <p class="big-message smaller">Take the next small step.</p>
+      <h2>You Are Overthinking The Future</h2>
+      <div class="divider">💗</div>
+
+      <p>You are trying to live tomorrow before it has arrived.</p>
+
+      <p>Your mind is searching for certainty: what if this happens, what if that goes wrong, what if the answer is no, what if you are disappointed?</p>
+
+      <p>Come back to the moment Allah has actually placed you in.</p>
+
+      <blockquote>
+        “And whoever relies upon Allah — then He is sufficient for him.”
+        <cite>Qur'an 65:3</cite>
+      </blockquote>
+
+      <p>Ask yourself three things:</p>
+      <p><strong>What is actually happening right now?</strong><br>Not what your fear predicts — what is true right now?</p>
+
+      <p><strong>Is there one useful step I can take?</strong><br>If yes, take it. If not, you do not need to manufacture an action just to feel in control.</p>
+
+      <p><strong>Can I leave the unseen with Allah?</strong><br>You were never asked to know the future. You were asked to worship Allah within the life you have today.</p>
+
+      <p class="big-message" style="font-size:32px">Do what is yours. Leave what is not yours with Allah.</p>
     </div>
   </div>
 
@@ -1105,35 +1303,51 @@ textarea:focus {
       <button class="close" aria-label="Close">×</button>
       <p class="eyebrow">A QUIET MOMENT</p>
       <h2>August Reflection 💭</h2>
-      <label class="journal-label">What has my heart been carrying lately?<textarea data-save="heart"></textarea></label>
-      <label class="journal-label">What good habit do I miss?<textarea data-save="habit"></textarea></label>
-      <label class="journal-label">What am I asking Allah for right now?<textarea data-save="dua"></textarea></label>
+      <div class="soft-note">Your answers save automatically on this device.</div>
+
+      <label class="journal-label">What am I trying too hard to control?
+        <textarea data-save="control"></textarea>
+      </label>
+
+      <label class="journal-label">What is one practical step that is actually mine to take?
+        <textarea data-save="step"></textarea>
+      </label>
+
+      <label class="journal-label">What outcome am I asking Allah for?
+        <textarea data-save="dua"></textarea>
+      </label>
+
+      <label class="journal-label">If the outcome is different from my plan, what truth about Allah do I want my heart to remember?
+        <textarea data-save="remember"></textarea>
+      </label>
+    </div>
+  </div>
+
+  <div class="modal" id="secretModal">
+    <div class="modal-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">SHHH...</p>
+      <h2>Your Secret August Deed 🤫</h2>
+      <p>Do one good thing this month that you intentionally keep private.</p>
+      <p>No photo. No telling someone for praise. No little hint afterward. Just a deed you hope Allah accepts.</p>
+      <p class="script-line">Some beautiful things are better kept between the servant and Allah.</p>
+      <button class="bloom-button" id="secretDone" type="button">🌸 I completed my secret deed</button>
+      <p class="hidden-message" id="secretMessage">Your secret bloom has been marked. 🌸</p>
     </div>
   </div>
 
   <div class="modal" id="passModal">
     <div class="modal-card">
       <button class="close" aria-label="Close">×</button>
-      <p class="eyebrow">PASS IT ON 💕</p>
-      <h2>This reminder is for someone else.</h2>
+      <p class="eyebrow">PASS IT ON</p>
+      <h2>A Reminder For Her 💕</h2>
       <div class="friend-note">
-        <strong>For your heart 🤍</strong>
-        <p>May Allah ease what feels heavy, forgive what has passed, guide what lies ahead and place barakah in what is written for you.</p>
+        <strong style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#916168">For your heart 🤍</strong>
+        <p>You don't have to know how everything will work out today. Take the step you can take, make your dua, and trust Allah with what you cannot see.</p>
+        <p><strong>May Allah place peace in your heart and barakah in what He writes for you.</strong></p>
       </div>
-      <button class="bloom-button" id="shareButton">💌 Share this reminder</button>
-    </div>
-  </div>
-
-  <div class="modal" id="bookmarkModal">
-    <div class="modal-card">
-      <button class="close" aria-label="Close">×</button>
-      <div class="digital-bookmark">
-        <span>🌷</span>
-        <small>ISLAMIC BLOOM</small>
-        <h2>COME<br>BACK.</h2>
-        <p>Even if yesterday wasn't your best day.</p>
-        <strong>Qur'an 39:53</strong>
-      </div>
+      <button class="bloom-button" id="copyReminder" type="button">💌 Copy reminder</button>
+      <p class="hidden-message" id="copyMessage">Copied — ready to send to someone you love. 💕</p>
     </div>
   </div>
 
@@ -1142,6 +1356,8 @@ textarea:focus {
       <button class="close" aria-label="Close">×</button>
       <p class="eyebrow">MY ISLAMIC BLOOM GARDEN</p>
       <h2>Collect Your Blooms 🌿</h2>
+      <p>Every month brings a new theme and a new collectible bloom.</p>
+
       <div class="garden-grid">
         <div class="garden-month active"><span id="augustGardenFlower">🌱</span><strong>AUG</strong></div>
         <div class="garden-month"><span>♡</span><strong>SEP</strong></div>
@@ -1149,255 +1365,272 @@ textarea:focus {
         <div class="garden-month"><span>♡</span><strong>NOV</strong></div>
         <div class="garden-month"><span>♡</span><strong>DEC</strong></div>
         <div class="garden-month"><span>♡</span><strong>JAN</strong></div>
+        <div class="garden-month"><span>♡</span><strong>FEB</strong></div>
+        <div class="garden-month"><span>♡</span><strong>MAR</strong></div>
+        <div class="garden-month"><span>♡</span><strong>APR</strong></div>
+        <div class="garden-month"><span>♡</span><strong>MAY</strong></div>
+        <div class="garden-month"><span>♡</span><strong>JUN</strong></div>
+        <div class="garden-month"><span>♡</span><strong>JUL</strong></div>
       </div>
-      <p id="gardenStatus" class="soft-note">Complete your 7 August deeds to open your first bloom.</p>
+
+      <p class="soft-note" id="gardenStatus">Complete all 7 August deeds to open your first bloom.</p>
     </div>
   </div>
 
   <div class="modal" id="giftModal">
     <div class="modal-card gift-card">
       <button class="close" aria-label="Close">×</button>
+
       <div id="lockedGift">
         <div class="giant-gift">🎁</div>
         <p class="eyebrow">AUGUST SURPRISE</p>
         <h2>Still Wrapped</h2>
-        <p>Complete all seven Little Deeds and something beautiful will bloom.</p>
+        <p>Complete all seven Tawakkul deeds to unlock your August bloom.</p>
       </div>
+
       <div id="unlockedGift" class="hidden">
         <p class="eyebrow">YOUR AUGUST BLOOM</p>
         <div class="bloom-animation">🌷</div>
-        <h2>Your First Bloom Has Opened!</h2>
+        <h2>Your Tawakkul Bloom Has Opened!</h2>
+        <p>You completed your August journey.</p>
+        <div class="affirmation">Do your part. Trust Allah with the rest. 🤍</div>
       </div>
     </div>
   </div>
 
-  <div class="celebration" id="celebration">
+  <div class="celebration" id="celebration" aria-hidden="true">
     <div>🌸</div><div>🌷</div><div>✨</div><div>🌸</div><div>✨</div><div>🌷</div>
   </div>
 
   <script>
-const envelope = document.getElementById("envelope");
-const seal = document.getElementById("seal");
-const tapHint = document.getElementById("tapHint");
-const mailbox = document.getElementById("mailbox");
+    const STORAGE = {
+      opened: "islamicBloomAugustOpenedV2",
+      deeds: "islamicBloomAugustTawakkulDeeds",
+      secret: "islamicBloomAugustSecretV2",
+      reflection: "islamicBloomAugustTawakkulReflection",
+      dhikr: "islamicBloomAugustDhikr"
+    };
 
-const STORAGE = {
-  opened: "islamicBloomAugustOpened",
-  deeds: "islamicBloomAugustDeeds",
-  secret: "islamicBloomAugustSecret",
-  reflection: "islamicBloomAugustReflection"
-};
+    const envelope = document.getElementById("envelope");
+    const seal = document.getElementById("seal");
+    const tapHint = document.getElementById("tapHint");
+    const deliveryNote = document.getElementById("deliveryNote");
+    const mailbox = document.getElementById("mailbox");
 
-function openEnvelope() {
-  if (envelope.classList.contains("open")) return;
+    function openEnvelope(){
+      if(envelope.classList.contains("open")) return;
+      envelope.classList.add("open");
+      tapHint.textContent = "Your August mail is opening... 🌸";
+      localStorage.setItem(STORAGE.opened,"true");
 
-  envelope.classList.add("open");
-  tapHint.textContent = "Your August mail is opening... 🌸";
-  localStorage.setItem(STORAGE.opened, "true");
+      setTimeout(()=>{
+        tapHint.textContent = "Something beautiful for your heart has arrived 💌";
+        deliveryNote.classList.add("show");
+      },900);
 
-  setTimeout(() => {
-    tapHint.textContent = "Something beautiful for your heart has arrived 💌";
-  }, 900);
-
-  setTimeout(() => {
-    mailbox.classList.remove("hidden");
-    mailbox.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 1800);
-}
-
-seal.addEventListener("click", openEnvelope);
-seal.addEventListener("keydown", e => {
-  if (e.key === "Enter" || e.key === " ") openEnvelope();
-});
-
-if (localStorage.getItem(STORAGE.opened) === "true") {
-  envelope.classList.add("open");
-  mailbox.classList.remove("hidden");
-  tapHint.textContent = "Welcome back to your August mail 🌷";
-}
-
-/* MODALS */
-const modals = document.querySelectorAll(".modal");
-
-document.querySelectorAll("[data-modal]").forEach(piece => {
-  piece.addEventListener("click", () => {
-    const modalId = piece.dataset.modal;
-
-    if (piece.id === "giftPiece") {
-      updateGift();
+      setTimeout(()=>{
+        mailbox.classList.remove("hidden");
+        mailbox.scrollIntoView({behavior:"smooth",block:"start"});
+      },1750);
     }
 
-    document.getElementById(modalId)?.classList.add("show");
-    document.body.style.overflow = "hidden";
-  });
-});
+    seal.addEventListener("click",openEnvelope);
 
-document.querySelectorAll(".close").forEach(btn => {
-  btn.addEventListener("click", () => closeModal(btn.closest(".modal")));
-});
+    if(localStorage.getItem(STORAGE.opened)==="true"){
+      envelope.classList.add("open");
+      mailbox.classList.remove("hidden");
+      deliveryNote.classList.add("show");
+      tapHint.textContent = "Welcome back to your August mail 🌷";
+    }
 
-modals.forEach(modal => {
-  modal.addEventListener("click", e => {
-    if (e.target === modal) closeModal(modal);
-  });
-});
-
-function closeModal(modal) {
-  modal.classList.remove("show");
-  document.body.style.overflow = "";
-}
-
-/* DEEDS */
-const deedBoxes = [...document.querySelectorAll(".deed")];
-let savedDeeds;
-
-try {
-  savedDeeds = JSON.parse(localStorage.getItem(STORAGE.deeds)) || Array(7).fill(false);
-} catch {
-  savedDeeds = Array(7).fill(false);
-}
-
-if (!Array.isArray(savedDeeds) || savedDeeds.length !== 7) {
-  savedDeeds = Array(7).fill(false);
-}
-
-deedBoxes.forEach((box, index) => {
-  box.checked = !!savedDeeds[index];
-
-  box.addEventListener("change", () => {
-    savedDeeds[index] = box.checked;
-    localStorage.setItem(STORAGE.deeds, JSON.stringify(savedDeeds));
-    updateProgress();
-  });
-});
-
-function completedCount() {
-  return savedDeeds.filter(Boolean).length;
-}
-
-function updateProgress() {
-  const count = completedCount();
-  const percent = (count / 7) * 100;
-
-  document.getElementById("progressFill").style.width = `${percent}%`;
-  document.getElementById("modalProgress").textContent = `${count} / 7 BLOOMED`;
-  document.getElementById("deedProgressLabel").textContent = `${count} of 7 bloomed`;
-
-  updateGift();
-  updateGarden();
-
-  const celebrated = sessionStorage.getItem("augustCelebrated");
-
-  if (count === 7 && !celebrated) {
-    sessionStorage.setItem("augustCelebrated", "true");
-    celebrate();
-
-    setTimeout(() => {
-      document.getElementById("giftModal").classList.add("show");
-      document.body.style.overflow = "hidden";
-    }, 800);
-  }
-}
-
-function updateGift() {
-  const unlocked = completedCount() === 7;
-  const giftPiece = document.getElementById("giftPiece");
-  const giftLabel = document.getElementById("giftLabel");
-  const giftIcon = document.getElementById("giftIcon");
-  const lockedGift = document.getElementById("lockedGift");
-  const unlockedGift = document.getElementById("unlockedGift");
-
-  if (unlocked) {
-    giftPiece.classList.remove("locked");
-    giftLabel.textContent = "Tap to open your bloom";
-    giftIcon.textContent = "🌷";
-    lockedGift.classList.add("hidden");
-    unlockedGift.classList.remove("hidden");
-  } else {
-    giftPiece.classList.add("locked");
-    giftLabel.textContent = `Complete ${7 - completedCount()} more to unlock`;
-    giftIcon.textContent = "🎁";
-    lockedGift.classList.remove("hidden");
-    unlockedGift.classList.add("hidden");
-  }
-}
-
-function updateGarden() {
-  const complete = completedCount() === 7;
-  document.getElementById("augustGardenFlower").textContent = complete ? "🌷" : "🌱";
-  document.getElementById("gardenStatus").textContent = complete
-    ? "August Bloom collected — your Blush Tulip is open. 🌷"
-    : `Complete ${7 - completedCount()} more August deed${7 - completedCount() === 1 ? "" : "s"} to open your first bloom.`;
-}
-
-function celebrate() {
-  const celebration = document.getElementById("celebration");
-  celebration.classList.add("show");
-
-  setTimeout(() => {
-    celebration.classList.remove("show");
-  }, 4000);
-}
-
-/* SECRET DEED */
-const secretDone = document.getElementById("secretDone");
-const secretMessage = document.getElementById("secretMessage");
-
-function showSecretDone() {
-  secretMessage.classList.add("show");
-  secretDone.textContent = "🌸 Secret bloom completed";
-}
-
-if (localStorage.getItem(STORAGE.secret) === "true") {
-  showSecretDone();
-}
-
-secretDone.addEventListener("click", () => {
-  localStorage.setItem(STORAGE.secret, "true");
-  showSecretDone();
-});
-
-/* REFLECTION */
-let reflectionData = {};
-
-try {
-  reflectionData = JSON.parse(localStorage.getItem(STORAGE.reflection)) || {};
-} catch {
-  reflectionData = {};
-}
-
-document.querySelectorAll("[data-save]").forEach(area => {
-  const key = area.dataset.save;
-  area.value = reflectionData[key] || "";
-
-  area.addEventListener("input", () => {
-    reflectionData[key] = area.value;
-    localStorage.setItem(STORAGE.reflection, JSON.stringify(reflectionData));
-  });
-});
-
-/* SHARE */
-document.getElementById("shareButton").addEventListener("click", async () => {
-  const text = "For your heart 🤍 May Allah ease what feels heavy, forgive what has passed, guide what lies ahead and place barakah in what is written for you. I'm making dua for you. — Islamic Bloom";
-
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: "A little reminder for your heart",
-        text
+    document.querySelectorAll("[data-modal]").forEach(piece=>{
+      piece.addEventListener("click",()=>{
+        if(piece.id==="giftPiece") updateGift();
+        const modal=document.getElementById(piece.dataset.modal);
+        if(modal){
+          modal.classList.add("show");
+          document.body.style.overflow="hidden";
+        }
       });
-    } catch {}
-  } else {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert("Reminder copied 💌");
-    } catch {
-      alert(text);
-    }
-  }
-});
+    });
 
-updateProgress();
+    document.querySelectorAll(".close").forEach(btn=>{
+      btn.addEventListener("click",()=>closeModal(btn.closest(".modal")));
+    });
+
+    document.querySelectorAll(".modal").forEach(modal=>{
+      modal.addEventListener("click",e=>{
+        if(e.target===modal) closeModal(modal);
+      });
+    });
+
+    function closeModal(modal){
+      modal.classList.remove("show");
+      document.body.style.overflow="";
+    }
+
+    let savedDeeds;
+    try{
+      savedDeeds=JSON.parse(localStorage.getItem(STORAGE.deeds))||Array(7).fill(false);
+    }catch{
+      savedDeeds=Array(7).fill(false);
+    }
+
+    if(!Array.isArray(savedDeeds)||savedDeeds.length!==7){
+      savedDeeds=Array(7).fill(false);
+    }
+
+    const deedBoxes=[...document.querySelectorAll(".deed")];
+
+    deedBoxes.forEach((box,index)=>{
+      box.checked=!!savedDeeds[index];
+      box.addEventListener("change",()=>{
+        savedDeeds[index]=box.checked;
+        localStorage.setItem(STORAGE.deeds,JSON.stringify(savedDeeds));
+        updateProgress();
+      });
+    });
+
+    function completedCount(){
+      return savedDeeds.filter(Boolean).length;
+    }
+
+    function updateProgress(){
+      const count=completedCount();
+      const percent=(count/7)*100;
+
+      document.getElementById("progressText").textContent=`${count} / 7 deeds`;
+      document.getElementById("progressFill").style.width=`${percent}%`;
+      document.getElementById("modalProgress").textContent=`${count} / 7`;
+      document.getElementById("modalProgressFill").style.width=`${percent}%`;
+      document.getElementById("deedProgressLabel").textContent=`${count} of 7 completed`;
+
+      updateGift();
+      updateGarden();
+
+      if(count===7 && !sessionStorage.getItem("augustTawakkulCelebrated")){
+        sessionStorage.setItem("augustTawakkulCelebrated","true");
+        celebrate();
+
+        setTimeout(()=>{
+          document.getElementById("giftModal").classList.add("show");
+          document.body.style.overflow="hidden";
+        },700);
+      }
+    }
+
+    function updateGift(){
+      const unlocked=completedCount()===7;
+      const giftPiece=document.getElementById("giftPiece");
+      const giftLabel=document.getElementById("giftLabel");
+      const giftIcon=document.getElementById("giftIcon");
+      const lockedGift=document.getElementById("lockedGift");
+      const unlockedGift=document.getElementById("unlockedGift");
+
+      if(unlocked){
+        giftPiece.classList.remove("locked");
+        giftLabel.textContent="Tap to open your August bloom.";
+        giftIcon.textContent="🌷";
+        lockedGift.classList.add("hidden");
+        unlockedGift.classList.remove("hidden");
+        giftPiece.querySelector(".open-badge").textContent="Unlocked ✦";
+      }else{
+        giftPiece.classList.add("locked");
+        giftLabel.textContent=`Complete ${7-completedCount()} more to unlock.`;
+        giftIcon.textContent="🎁";
+        lockedGift.classList.remove("hidden");
+        unlockedGift.classList.add("hidden");
+        giftPiece.querySelector(".open-badge").textContent="Locked ✦";
+      }
+    }
+
+    function updateGarden(){
+      const complete=completedCount()===7;
+      document.getElementById("augustGardenFlower").textContent=complete?"🌷":"🌱";
+      document.getElementById("gardenStatus").textContent=complete
+        ?"August Bloom collected — your Tawakkul tulip is open. 🌷"
+        :`Complete ${7-completedCount()} more deed${7-completedCount()===1?"":"s"} to open your August bloom.`;
+    }
+
+    function celebrate(){
+      const el=document.getElementById("celebration");
+      el.classList.add("show");
+      setTimeout(()=>el.classList.remove("show"),4000);
+    }
+
+    const revealCard=document.getElementById("revealCard");
+    document.getElementById("revealCover").addEventListener("click",()=>{
+      revealCard.classList.add("revealed");
+    });
+
+    const secretDone=document.getElementById("secretDone");
+    const secretMessage=document.getElementById("secretMessage");
+
+    function markSecret(){
+      secretMessage.classList.add("show");
+      secretDone.textContent="🌸 Secret deed completed";
+    }
+
+    if(localStorage.getItem(STORAGE.secret)==="true") markSecret();
+
+    secretDone.addEventListener("click",()=>{
+      localStorage.setItem(STORAGE.secret,"true");
+      markSecret();
+    });
+
+    let reflectionData={};
+    try{
+      reflectionData=JSON.parse(localStorage.getItem(STORAGE.reflection))||{};
+    }catch{
+      reflectionData={};
+    }
+
+    document.querySelectorAll("[data-save]").forEach(area=>{
+      const key=area.dataset.save;
+      area.value=reflectionData[key]||"";
+      area.addEventListener("input",()=>{
+        reflectionData[key]=area.value;
+        localStorage.setItem(STORAGE.reflection,JSON.stringify(reflectionData));
+      });
+    });
+
+    let dhikrCount=parseInt(localStorage.getItem(STORAGE.dhikr)||"0",10);
+    const dhikrDisplay=document.getElementById("dhikrCount");
+    const dhikrNote=document.getElementById("dhikrNote");
+
+    function renderDhikr(){
+      dhikrDisplay.textContent=dhikrCount;
+      if(dhikrCount===0) dhikrNote.textContent="A calm heart is not measured by a number. This is simply a gentle interactive reminder.";
+      else if(dhikrCount<10) dhikrNote.textContent="Slowly. Let each tap be intentional. 🌸";
+      else if(dhikrCount<33) dhikrNote.textContent="Beautiful — keep your heart present, not just your finger moving.";
+      else dhikrNote.textContent="You can stop whenever you like. The goal is remembrance, not chasing a number. 🤍";
+    }
+
+    document.getElementById("dhikrAdd").addEventListener("click",()=>{
+      dhikrCount+=1;
+      localStorage.setItem(STORAGE.dhikr,String(dhikrCount));
+      renderDhikr();
+    });
+
+    document.getElementById("dhikrReset").addEventListener("click",()=>{
+      dhikrCount=0;
+      localStorage.setItem(STORAGE.dhikr,"0");
+      renderDhikr();
+    });
+
+    document.getElementById("copyReminder").addEventListener("click",async()=>{
+      const text="For your heart 🤍 You don't have to know how everything will work out today. Take the step you can take, make your dua, and trust Allah with what you cannot see. May Allah place peace in your heart and barakah in what He writes for you. — Islamic Bloom";
+      try{
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyMessage").classList.add("show");
+      }catch{
+        document.getElementById("copyMessage").textContent="Press and hold the reminder above to copy it. 💕";
+        document.getElementById("copyMessage").classList.add("show");
+      }
+    });
+
+    renderDhikr();
+    updateProgress();
   </script>
 </body>
 </html>
