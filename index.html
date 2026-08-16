@@ -1,0 +1,1530 @@
+ISLAMIC BLOOM — AUGUST SNAIL MAIL
+GITHUB BUILD NOTES
+
+Create these 3 files in your GitHub repository:
+1. index.html
+2. style.css
+3. script.js
+
+==================================================
+FILE 1 — index.html
+==================================================
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f8e8e8">
+  <title>Islamic Bloom — August Snail Mail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="petals" aria-hidden="true"></div>
+
+  <main class="app">
+    <header class="brand">
+      <div class="brand-flower">🌷</div>
+      <p class="eyebrow">ISLAMIC BLOOM</p>
+      <h1>August Snail Mail</h1>
+      <p class="subtitle">A little iman delivered to your heart.</p>
+    </header>
+
+    <section class="mail-stage" id="mailStage">
+      <div class="envelope" id="envelope">
+        <div class="envelope-back"></div>
+
+        <div class="letter-preview" id="letterPreview">
+          <span>💌</span>
+          <strong>YOU'VE GOT MAIL</strong>
+          <small>Come Back to Allah</small>
+        </div>
+
+        <div class="flap" id="flap">
+          <div class="liner">
+            <span>🌸</span><span>✦</span><span>🌷</span><span>☾</span>
+            <span>✦</span><span>💌</span><span>🌸</span><span>☾</span>
+          </div>
+        </div>
+
+        <div class="envelope-front">
+          <div class="stamp">
+            <span>🌷</span>
+            <small>BLOOM<br>MAIL</small>
+          </div>
+
+          <div class="postmark">AUG • 2026</div>
+
+          <div class="address-label">
+            <span>SPECIAL DELIVERY</span>
+            <strong>FOR YOUR HEART</strong>
+            <small>August 2026</small>
+          </div>
+
+          <div class="seal" id="seal" role="button" tabindex="0" aria-label="Open envelope">
+            <span>🌷</span>
+            <small>OPEN WITH<br>BISMILLAH</small>
+          </div>
+        </div>
+      </div>
+
+      <p class="tap-hint" id="tapHint">Tap the seal to open your August mail 💌</p>
+    </section>
+
+    <section class="mailbox hidden" id="mailbox">
+      <div class="section-heading">
+        <p class="eyebrow">AUGUST DELIVERY</p>
+        <h2>Your mail is here 💌</h2>
+        <p>Tap each piece to open it.</p>
+      </div>
+
+      <div class="mail-grid">
+        <button class="mail-piece large" data-modal="letterModal">
+          <span class="piece-icon">💌</span>
+          <span class="piece-number">01</span>
+          <strong>August Letter</strong>
+          <small>Come Back to Allah</small>
+        </button>
+
+        <button class="mail-piece" data-modal="bloomModal">
+          <span class="piece-icon">🌷</span>
+          <span class="piece-number">02</span>
+          <strong>August Bloom</strong>
+          <small>Blush Tulip</small>
+        </button>
+
+        <button class="mail-piece" data-modal="duaModal">
+          <span class="piece-icon">🤲</span>
+          <span class="piece-number">03</span>
+          <strong>Dua Card</strong>
+          <small>Istighfar</small>
+        </button>
+
+        <button class="mail-piece" data-modal="reminderModal">
+          <span class="piece-icon">🕊️</span>
+          <span class="piece-number">04</span>
+          <strong>Keep This Close</strong>
+          <small>Qur'an 39:53</small>
+        </button>
+
+        <button class="mail-piece large" data-modal="deedsModal">
+          <span class="piece-icon">🌸</span>
+          <span class="piece-number">05</span>
+          <strong>7 Little Deeds</strong>
+          <small id="deedProgressLabel">0 of 7 bloomed</small>
+        </button>
+
+        <button class="mail-piece secret" data-modal="secretModal">
+          <span class="piece-icon">🤫</span>
+          <span class="piece-number">06</span>
+          <strong>Secret Deed</strong>
+          <small>Between you and Allah</small>
+        </button>
+
+        <button class="mail-piece mini-envelope" data-modal="openWhenModal">
+          <span class="piece-icon">💗</span>
+          <span class="piece-number">07</span>
+          <strong>Open When...</strong>
+          <small>You feel far from Allah</small>
+        </button>
+
+        <button class="mail-piece" data-modal="reflectionModal">
+          <span class="piece-icon">💭</span>
+          <span class="piece-number">08</span>
+          <strong>Quiet Reflection</strong>
+          <small>A moment for your heart</small>
+        </button>
+
+        <button class="mail-piece" data-modal="passModal">
+          <span class="piece-icon">💕</span>
+          <span class="piece-number">09</span>
+          <strong>Pass It On</strong>
+          <small>For another Muslimah</small>
+        </button>
+
+        <button class="mail-piece bookmark" data-modal="bookmarkModal">
+          <span class="piece-icon">🔖</span>
+          <span class="piece-number">10</span>
+          <strong>Bookmark</strong>
+          <small>One sincere step</small>
+        </button>
+
+        <button class="mail-piece large" data-modal="gardenModal">
+          <span class="piece-icon">🌿</span>
+          <span class="piece-number">11</span>
+          <strong>My Bloom Garden</strong>
+          <small>Collect all 12 blooms</small>
+        </button>
+
+        <button class="mail-piece gift locked" id="giftPiece" data-modal="giftModal">
+          <span class="piece-icon" id="giftIcon">🎁</span>
+          <span class="piece-number">12</span>
+          <strong>August Surprise</strong>
+          <small id="giftLabel">Complete 7 deeds to unlock</small>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- AUGUST LETTER -->
+  <div class="modal" id="letterModal">
+    <div class="modal-card letter-paper">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">ISLAMIC BLOOM • AUGUST</p>
+      <h2>Come Back to Allah</h2>
+      <div class="divider">🌷</div>
+
+      <p>Dear beautiful soul,</p>
+
+      <p>Maybe you have been feeling distant lately. Maybe your prayers have felt rushed, Qur'an became “tomorrow”, or life simply became so busy that your heart began to miss something.</p>
+
+      <p>This month's letter carries one gentle reminder:</p>
+
+      <p class="big-message">Come back.</p>
+
+      <p>Not when you become perfect. Not once everything is fixed. Begin now, with one sincere step.</p>
+
+      <blockquote>
+        “Do not lose hope in Allah's mercy.”
+        <cite>Qur'an 39:53</cite>
+      </blockquote>
+
+      <p>Make sincere tawbah. Say <em>Astaghfirullah</em>. Open the Qur'an. Make one honest dua. Pray the next salah with your heart present.</p>
+
+      <p>You do not have to transform everything overnight.</p>
+
+      <p class="script-line">Your garden doesn't bloom all at once. Neither do you.</p>
+
+      <p>With love,<br><strong>Islamic Bloom 🌸</strong></p>
+    </div>
+  </div>
+
+  <!-- BLOOM -->
+  <div class="modal" id="bloomModal">
+    <div class="modal-card collectible">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">AUGUST BLOOM • 01</p>
+      <div class="giant-flower">🌷</div>
+      <h2>The Blush Tulip</h2>
+      <p class="theme-word">RETURN</p>
+      <p>Your August flower is a collectible reminder of this month's journey. The flower itself is decorative and is not assigned a religious meaning.</p>
+      <div class="affirmation">I can begin again.</div>
+    </div>
+  </div>
+
+  <!-- DUA -->
+  <div class="modal" id="duaModal">
+    <div class="modal-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">DUA OF THE MONTH</p>
+      <h2>A Dua for Forgiveness</h2>
+      <div class="arabic" dir="rtl">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</div>
+      <p class="transliteration">Astaghfirullaha wa atubu ilayh</p>
+      <p><strong>I seek Allah's forgiveness and repent to Him.</strong></p>
+      <div class="soft-note">Say it sincerely throughout your day — and remember what you are asking Allah for.</div>
+    </div>
+  </div>
+
+  <!-- REMINDER -->
+  <div class="modal" id="reminderModal">
+    <div class="modal-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">KEEP THIS CLOSE</p>
+      <h2>Don't Despair.</h2>
+      <blockquote>
+        “Do not lose hope in Allah's mercy.”
+        <cite>Qur'an 39:53</cite>
+      </blockquote>
+      <p>Your mistakes should lead you toward sincere repentance — not convince you to stay away.</p>
+      <div class="three-words">
+        <span>RETURN.</span><span>REPENT.</span><span>BEGIN AGAIN.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEEDS -->
+  <div class="modal" id="deedsModal">
+    <div class="modal-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">AUGUST IMAN CHALLENGE</p>
+      <h2>7 Little Deeds 🌸</h2>
+      <p>No perfection. Seven little acts of worship and goodness.</p>
+
+      <div class="deeds">
+        <label><input type="checkbox" class="deed" data-deed="0"><span>Make sincere tawbah about something sitting on your heart.</span></label>
+        <label><input type="checkbox" class="deed" data-deed="1"><span>Pray one salah with your phone completely out of reach.</span></label>
+        <label><input type="checkbox" class="deed" data-deed="2"><span>Read at least one page of Qur'an slowly.</span></label>
+        <label><input type="checkbox" class="deed" data-deed="3"><span>Give something quietly in charity, even if it is small.</span></label>
+        <label><input type="checkbox" class="deed" data-deed="4"><span>Make dua for someone without telling them.</span></label>
+        <label><input type="checkbox" class="deed" data-deed="5"><span>Spend five quiet minutes making dhikr.</span></label>
+        <label><input type="checkbox" class="deed" data-deed="6"><span>Restart one neglected good habit.</span></label>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-bar"><div id="progressFill"></div></div>
+        <strong id="modalProgress">0 / 7 BLOOMED</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECRET -->
+  <div class="modal" id="secretModal">
+    <div class="modal-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">SHHH...</p>
+      <h2>The Secret Deed 🤫</h2>
+      <p>Do one genuinely good thing this month that you deliberately do not tell anyone about.</p>
+      <div class="secret-rules">
+        <span>No photo.</span>
+        <span>No announcement.</span>
+        <span>No praise needed.</span>
+      </div>
+      <p class="script-line">Just you knowing — and Allah knowing.</p>
+      <button class="bloom-button" id="secretDone">🌸 I completed my secret deed</button>
+      <p id="secretMessage" class="hidden-message">Your little secret bloom has been marked. 🌸</p>
+    </div>
+  </div>
+
+  <!-- OPEN WHEN -->
+  <div class="modal" id="openWhenModal">
+    <div class="modal-card open-when-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">OPEN WHEN...</p>
+      <h2>You Feel Far From Allah</h2>
+      <div class="divider">💌</div>
+      <p>If you're reading this because you feel far away, don't let that feeling convince you to stay away.</p>
+      <blockquote>
+        “Do not lose hope in Allah's mercy.”
+        <cite>Qur'an 39:53</cite>
+      </blockquote>
+      <p>Make wudu. Pray. Say <em>Astaghfirullah</em>. Make sincere dua. Open your Qur'an.</p>
+      <p>You don't need a dramatic transformation tonight.</p>
+      <p class="big-message smaller">Take the next small step.</p>
+    </div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="modal" id="reflectionModal">
+    <div class="modal-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">A QUIET MOMENT</p>
+      <h2>August Reflection 💭</h2>
+      <p class="soft-note">Your answers save on this device.</p>
+
+      <label class="journal-label">What has my heart been carrying lately?
+        <textarea data-save="heart"></textarea>
+      </label>
+
+      <label class="journal-label">What good habit do I miss?
+        <textarea data-save="habit"></textarea>
+      </label>
+
+      <label class="journal-label">What am I asking Allah for right now?
+        <textarea data-save="dua"></textarea>
+      </label>
+
+      <label class="journal-label">Three blessings I noticed recently:
+        <textarea data-save="blessings"></textarea>
+      </label>
+    </div>
+  </div>
+
+  <!-- PASS IT ON -->
+  <div class="modal" id="passModal">
+    <div class="modal-card pass-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">PASS IT ON 💕</p>
+      <h2>This reminder is for someone else.</h2>
+      <p>Think of a Muslim woman who could use a little encouragement today.</p>
+      <div class="friend-note">
+        <strong>For your heart 🤍</strong>
+        <p>May Allah ease what feels heavy, forgive what has passed, guide what lies ahead and place barakah in what is written for you.</p>
+        <p><strong>I'm making dua for you.</strong></p>
+      </div>
+      <button class="bloom-button" id="shareButton">💌 Share this reminder</button>
+    </div>
+  </div>
+
+  <!-- BOOKMARK -->
+  <div class="modal" id="bookmarkModal">
+    <div class="modal-card">
+      <button class="close" aria-label="Close">×</button>
+      <div class="digital-bookmark">
+        <span>🌷</span>
+        <small>ISLAMIC BLOOM</small>
+        <h2>COME<br>BACK.</h2>
+        <p>Even if yesterday wasn't your best day.</p>
+        <strong>Qur'an 39:53</strong>
+        <div>☾ ✦ 🌸 ✦ ☾</div>
+        <small>ONE SINCERE STEP AT A TIME.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- GARDEN -->
+  <div class="modal" id="gardenModal">
+    <div class="modal-card garden-card">
+      <button class="close" aria-label="Close">×</button>
+      <p class="eyebrow">MY ISLAMIC BLOOM GARDEN</p>
+      <h2>Collect Your Blooms 🌿</h2>
+      <p>Complete each month's journey and watch your garden grow.</p>
+
+      <div class="garden-grid">
+        <div class="garden-month august active"><span id="augustGardenFlower">🌱</span><strong>AUG</strong></div>
+        <div class="garden-month"><span>♡</span><strong>SEP</strong></div>
+        <div class="garden-month"><span>♡</span><strong>OCT</strong></div>
+        <div class="garden-month"><span>♡</span><strong>NOV</strong></div>
+        <div class="garden-month"><span>♡</span><strong>DEC</strong></div>
+        <div class="garden-month"><span>♡</span><strong>JAN</strong></div>
+        <div class="garden-month"><span>♡</span><strong>FEB</strong></div>
+        <div class="garden-month"><span>♡</span><strong>MAR</strong></div>
+        <div class="garden-month"><span>♡</span><strong>APR</strong></div>
+        <div class="garden-month"><span>♡</span><strong>MAY</strong></div>
+        <div class="garden-month"><span>♡</span><strong>JUN</strong></div>
+        <div class="garden-month"><span>♡</span><strong>JUL</strong></div>
+      </div>
+
+      <p id="gardenStatus" class="soft-note">Complete your 7 August deeds to open your first bloom.</p>
+    </div>
+  </div>
+
+  <!-- GIFT -->
+  <div class="modal" id="giftModal">
+    <div class="modal-card gift-card">
+      <button class="close" aria-label="Close">×</button>
+
+      <div id="lockedGift">
+        <div class="giant-gift">🎁</div>
+        <p class="eyebrow">AUGUST SURPRISE</p>
+        <h2>Still Wrapped</h2>
+        <p>Complete all seven Little Deeds and something beautiful will bloom.</p>
+      </div>
+
+      <div id="unlockedGift" class="hidden">
+        <p class="eyebrow">YOUR AUGUST BLOOM</p>
+        <div class="bloom-animation">🌷</div>
+        <h2>Your First Bloom Has Opened!</h2>
+        <p>You completed your August journey.</p>
+        <div class="affirmation">May the small good you nurture continue to grow. 🤍</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="celebration" id="celebration" aria-hidden="true">
+    <div>🌸</div><div>🌷</div><div>✨</div><div>🌸</div><div>✨</div><div>🌷</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+==================================================
+FILE 2 — style.css
+==================================================
+
+:root {
+  --pink: #f6dddd;
+  --pink-light: #fff2f3;
+  --pink-deep: #c98991;
+  --rose: #b96f79;
+  --cream: #fffaf5;
+  --beige: #eadfd3;
+  --beige-deep: #d7c4b2;
+  --white: #ffffff;
+  --ink: #624f50;
+  --muted: #8f7979;
+  --shadow: 0 18px 50px rgba(113, 79, 79, .16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(255,255,255,.95) 0 7%, transparent 8%),
+    radial-gradient(circle at 90% 25%, rgba(255,255,255,.65) 0 5%, transparent 6%),
+    linear-gradient(145deg, #fffaf7, #f9e8e8 48%, #efe3d8);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .25;
+  background-image:
+    radial-gradient(#dcaeb1 1px, transparent 1px),
+    radial-gradient(#fff 1px, transparent 1px);
+  background-size: 32px 32px, 46px 46px;
+  background-position: 0 0, 12px 15px;
+}
+
+button, textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 900px);
+  margin: auto;
+  padding: max(28px, env(safe-area-inset-top)) 18px 80px;
+}
+
+.brand {
+  text-align: center;
+  padding: 10px 0 24px;
+}
+
+.brand-flower {
+  font-size: 31px;
+  filter: drop-shadow(0 5px 6px rgba(137,89,89,.15));
+  animation: float 3s ease-in-out infinite;
+}
+
+.eyebrow {
+  margin: 7px 0 5px;
+  color: var(--rose);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+h1, h2 {
+  font-family: "Cormorant Garamond", serif;
+  color: #765b5e;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: clamp(37px, 10vw, 58px);
+  line-height: .95;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 11px 0 0;
+  font-size: 14px;
+}
+
+.mail-stage {
+  min-height: 440px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  perspective: 1200px;
+  padding: 55px 0 30px;
+}
+
+.envelope {
+  position: relative;
+  width: min(92vw, 560px);
+  aspect-ratio: 1.48 / 1;
+  filter: drop-shadow(0 28px 28px rgba(91,61,61,.18));
+  transform-style: preserve-3d;
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #f7dfe0, #edcccc);
+  border: 1px solid rgba(150,105,105,.15);
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: 18px;
+  background:
+    linear-gradient(32deg, transparent 49.5%, rgba(202,155,158,.26) 50%, transparent 50.7%),
+    linear-gradient(-32deg, transparent 49.5%, rgba(202,155,158,.26) 50%, transparent 50.7%),
+    linear-gradient(145deg, #f8e3e3, #efd0d2);
+  clip-path: polygon(0 0, 50% 46%, 100% 0, 100% 100%, 0 100%);
+}
+
+.flap {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 59%;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 1.05s cubic-bezier(.2,.8,.2,1);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(165deg, #f9e6e7, #efcfd1);
+  border-radius: 18px 18px 0 0;
+}
+
+.liner {
+  position: absolute;
+  inset: 7px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  place-items: center;
+  font-size: 20px;
+  opacity: .72;
+  background: #fff8f2;
+  clip-path: polygon(0 0,100% 0,50% 100%);
+}
+
+.envelope.open .flap {
+  transform: rotateX(178deg);
+  z-index: 1;
+}
+
+.letter-preview {
+  position: absolute;
+  z-index: 3;
+  left: 9%;
+  right: 9%;
+  top: 12%;
+  height: 74%;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 22px;
+  gap: 5px;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(239,202,205,.4) 0 3px, transparent 4px),
+    #fffaf4;
+  box-shadow: 0 3px 15px rgba(100,70,70,.1);
+  transition: transform 1.1s .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.letter-preview span {
+  font-size: 24px;
+}
+
+.letter-preview strong {
+  color: var(--rose);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 21px;
+}
+
+.letter-preview small {
+  color: var(--muted);
+}
+
+.envelope.open .letter-preview {
+  transform: translateY(-48%);
+}
+
+.address-label {
+  position: absolute;
+  left: 50%;
+  top: 57%;
+  transform: translate(-50%,-50%) rotate(-1deg);
+  width: 55%;
+  padding: 17px 10px;
+  text-align: center;
+  background: rgba(255,250,245,.92);
+  border: 1px solid #e5cfd0;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(117,80,80,.08);
+}
+
+.address-label span,
+.address-label small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .18em;
+}
+
+.address-label strong {
+  display: block;
+  margin: 4px 0;
+  color: #a86c74;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(18px,5vw,27px);
+}
+
+.stamp {
+  position: absolute;
+  top: 8%;
+  right: 7%;
+  width: 62px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  color: #a36d73;
+  background: #fff8f0;
+  border: 2px dashed #c99499;
+  transform: rotate(4deg);
+}
+
+.stamp span { font-size: 24px; }
+.stamp small { font-size: 7px; font-weight: 700; text-align: center; letter-spacing: .1em; }
+
+.postmark {
+  position: absolute;
+  top: 17%;
+  right: 22%;
+  color: rgba(139,94,98,.5);
+  border: 1px solid rgba(139,94,98,.4);
+  border-radius: 50%;
+  padding: 8px 5px;
+  font-size: 8px;
+  transform: rotate(-8deg);
+}
+
+.seal {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 43%;
+  width: 92px;
+  height: 92px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  cursor: pointer;
+  color: white;
+  background:
+    radial-gradient(circle at 35% 30%, #df9da5, #bd747e 58%, #a55f69);
+  border: 5px double rgba(255,255,255,.45);
+  box-shadow: 0 8px 18px rgba(113,63,69,.25);
+  transition: transform .3s, opacity .4s;
+  animation: sealPulse 2.2s infinite;
+}
+
+.seal span { font-size: 24px; }
+.seal small { font-size: 7px; font-weight: 700; line-height: 1.15; text-align: center; }
+
+.envelope.open .seal {
+  transform: translate(-50%,-50%) scale(.2) rotate(25deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tap-hint {
+  margin-top: 35px;
+  color: var(--rose);
+  text-align: center;
+  font-size: 13px;
+  animation: hint 2s ease-in-out infinite;
+}
+
+.mailbox {
+  padding-top: 20px;
+  animation: fadeUp .8s ease both;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.section-heading {
+  text-align: center;
+  margin: 15px 0 25px;
+}
+
+.section-heading h2 {
+  margin: 4px 0;
+  font-size: 36px;
+}
+
+.section-heading p:last-child {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.mail-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 13px;
+}
+
+.mail-piece {
+  position: relative;
+  min-height: 155px;
+  padding: 20px 14px;
+  border: 1px solid rgba(180,132,135,.2);
+  border-radius: 22px;
+  text-align: left;
+  color: var(--ink);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,244,241,.9));
+  box-shadow: 0 10px 25px rgba(112,76,76,.08);
+  cursor: pointer;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+
+.mail-piece:nth-child(3n+2) {
+  background: linear-gradient(145deg,#f8e1e2,#fff5f1);
+}
+
+.mail-piece:nth-child(4n) {
+  background: linear-gradient(145deg,#f0e5da,#fffaf5);
+}
+
+.mail-piece:active {
+  transform: scale(.97) rotate(-1deg);
+}
+
+.mail-piece.large {
+  grid-column: span 2;
+  min-height: 135px;
+}
+
+.piece-icon {
+  display: block;
+  font-size: 31px;
+  margin-bottom: 14px;
+}
+
+.piece-number {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+  color: #c89ca0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+}
+
+.mail-piece strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  color: #75585b;
+  font-size: 21px;
+}
+
+.mail-piece small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.mail-piece.locked {
+  opacity: .6;
+  filter: grayscale(.25);
+}
+
+.modal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 18px 12px max(12px, env(safe-area-inset-bottom));
+  background: rgba(82,61,61,.35);
+  backdrop-filter: blur(8px);
+}
+
+.modal.show {
+  display: flex;
+  animation: fadeIn .25s ease;
+}
+
+.modal-card {
+  position: relative;
+  width: min(100%, 650px);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 35px 25px 40px;
+  border: 1px solid rgba(180,132,135,.22);
+  border-radius: 30px 30px 20px 20px;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 90% 8%, rgba(245,218,219,.6) 0 45px, transparent 46px),
+    #fffaf5;
+  box-shadow: var(--shadow);
+  animation: sheetUp .4s cubic-bezier(.2,.8,.2,1);
+}
+
+.modal-card h2 {
+  margin: 5px 0 14px;
+  font-size: clamp(34px,9vw,48px);
+  line-height: .95;
+}
+
+.modal-card p {
+  line-height: 1.75;
+}
+
+.close {
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  float: right;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  color: #956b70;
+  background: #f7e3e3;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.letter-paper {
+  background:
+    linear-gradient(rgba(255,250,245,.95),rgba(255,250,245,.95)),
+    repeating-linear-gradient(0deg, transparent 0 31px, #eadfda 32px);
+}
+
+.divider {
+  margin: 20px 0;
+  text-align: center;
+  letter-spacing: .6em;
+}
+
+.big-message {
+  color: #ae6f78;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 42px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.big-message.smaller {
+  font-size: 31px;
+}
+
+blockquote {
+  margin: 25px 0;
+  padding: 24px 20px;
+  border: 1px solid #ead4d4;
+  border-radius: 20px;
+  color: #8c6066;
+  background: #fff2f2;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-family: "DM Sans",sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: .12em;
+}
+
+.script-line {
+  color: #a76c74;
+  font-family: "Cormorant Garamond",serif;
+  font-size: 25px;
+  font-style: italic;
+}
+
+.giant-flower {
+  margin: 10px 0;
+  font-size: 100px;
+  text-align: center;
+  animation: float 3s infinite;
+}
+
+.collectible {
+  text-align: center;
+}
+
+.theme-word {
+  color: var(--rose);
+  font-weight: 700;
+  letter-spacing: .3em;
+}
+
+.affirmation {
+  margin-top: 25px;
+  padding: 18px;
+  border-radius: 18px;
+  color: #9b6870;
+  background: #f7e0e1;
+  font-family: "Cormorant Garamond",serif;
+  font-size: 25px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.arabic {
+  margin: 28px 0 12px;
+  color: #8e6268;
+  font-size: 31px;
+  line-height: 1.9;
+  text-align: center;
+}
+
+.transliteration {
+  color: #a46d75;
+  font-style: italic;
+  text-align: center;
+}
+
+.soft-note {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 15px;
+  color: var(--muted);
+  background: #f5ebe3;
+  font-size: 12px;
+}
+
+.three-words {
+  display: grid;
+  gap: 8px;
+  margin-top: 25px;
+  text-align: center;
+  color: var(--rose);
+  font-family: "Cormorant Garamond",serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.deeds {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.deeds label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid #eddada;
+  border-radius: 16px;
+  background: rgba(255,255,255,.7);
+  cursor: pointer;
+}
+
+.deeds input {
+  width: 21px;
+  height: 21px;
+  flex: 0 0 auto;
+  accent-color: #c77f89;
+}
+
+.deeds label:has(input:checked) {
+  background: #f8e3e4;
+}
+
+.progress-wrap {
+  text-align: center;
+}
+
+.progress-bar {
+  height: 12px;
+  overflow: hidden;
+  margin: 15px 0 9px;
+  border-radius: 20px;
+  background: #eaded8;
+}
+
+.progress-bar div {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg,#e0a2aa,#bc7580);
+  transition: width .5s ease;
+}
+
+.secret-rules {
+  display: grid;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.secret-rules span {
+  padding: 11px;
+  border-radius: 12px;
+  background: #f7e7e5;
+  text-align: center;
+}
+
+.bloom-button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 16px;
+  border: 0;
+  border-radius: 17px;
+  color: white;
+  background: linear-gradient(145deg,#d6929a,#b96f79);
+  box-shadow: 0 8px 16px rgba(161,98,107,.2);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hidden-message {
+  display: none;
+  text-align: center;
+  color: var(--rose);
+  font-weight: 700;
+}
+
+.hidden-message.show {
+  display: block;
+}
+
+.journal-label {
+  display: block;
+  margin: 20px 0;
+  color: #8e6469;
+  font-family: "Cormorant Garamond",serif;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  margin-top: 8px;
+  resize: vertical;
+  padding: 14px;
+  border: 1px solid #ead7d5;
+  border-radius: 14px;
+  outline: none;
+  color: var(--ink);
+  background: rgba(255,255,255,.75);
+  font-family: "DM Sans",sans-serif;
+}
+
+textarea:focus {
+  border-color: #d69ca2;
+  box-shadow: 0 0 0 3px rgba(214,156,162,.15);
+}
+
+.friend-note {
+  margin: 25px 0;
+  padding: 25px 20px;
+  border: 1px dashed #d7aeb0;
+  border-radius: 20px;
+  text-align: center;
+  background: #fff3f3;
+}
+
+.digital-bookmark {
+  width: min(75%,280px);
+  min-height: 510px;
+  margin: auto;
+  padding: 35px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #dfbfc0;
+  border-radius: 100px 100px 20px 20px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 8%,#fff 0 8%,transparent 8.5%),
+    linear-gradient(#f4d9db,#fff8f2);
+  box-shadow: 0 15px 25px rgba(104,72,72,.12);
+}
+
+.digital-bookmark > span {
+  font-size: 55px;
+}
+
+.digital-bookmark h2 {
+  font-size: 45px;
+}
+
+.garden-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin: 25px 0;
+}
+
+.garden-month {
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  border: 1px dashed #dcc7bd;
+  border-radius: 18px;
+  color: #b8a5a1;
+  background: #f7eee8;
+}
+
+.garden-month span {
+  font-size: 27px;
+}
+
+.garden-month strong {
+  font-size: 9px;
+  letter-spacing: .15em;
+}
+
+.garden-month.active {
+  border-style: solid;
+  color: #a36b72;
+  background: #f5dcde;
+}
+
+.giant-gift {
+  font-size: 90px;
+  text-align: center;
+}
+
+.gift-card {
+  text-align: center;
+}
+
+.bloom-animation {
+  font-size: 120px;
+  animation: bloom 1.5s ease both, float 3s 1.5s infinite;
+}
+
+.celebration {
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  pointer-events: none;
+  display: none;
+  overflow: hidden;
+}
+
+.celebration.show {
+  display: block;
+}
+
+.celebration div {
+  position: absolute;
+  top: -10%;
+  font-size: 28px;
+  animation: fall 3s linear forwards;
+}
+
+.celebration div:nth-child(1){left:10%;animation-delay:.1s}
+.celebration div:nth-child(2){left:25%;animation-delay:.6s}
+.celebration div:nth-child(3){left:42%;animation-delay:.2s}
+.celebration div:nth-child(4){left:58%;animation-delay:.8s}
+.celebration div:nth-child(5){left:75%;animation-delay:.4s}
+.celebration div:nth-child(6){left:90%;animation-delay:.7s}
+
+@keyframes sealPulse {
+  0%,100% { box-shadow: 0 8px 18px rgba(113,63,69,.25), 0 0 0 0 rgba(199,127,137,.22); }
+  50% { box-shadow: 0 8px 18px rgba(113,63,69,.25), 0 0 0 12px rgba(199,127,137,0); }
+}
+
+@keyframes hint {
+  50% { transform: translateY(4px); opacity:.65; }
+}
+
+@keyframes float {
+  50% { transform: translateY(-7px) rotate(2deg); }
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(25px); }
+  to { opacity:1; transform:none; }
+}
+
+@keyframes fadeIn {
+  from { opacity:0; }
+}
+
+@keyframes sheetUp {
+  from { opacity:0; transform:translateY(70px) scale(.97); }
+  to { opacity:1; transform:none; }
+}
+
+@keyframes bloom {
+  0% { transform:scale(.1) rotate(-20deg); opacity:0; }
+  60% { transform:scale(1.2) rotate(5deg); }
+  100% { transform:scale(1); opacity:1; }
+}
+
+@keyframes fall {
+  to { transform:translateY(115vh) rotate(500deg); opacity:.1; }
+}
+
+@media (min-width: 700px) {
+  .mail-grid {
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .mail-piece.large {
+    grid-column: span 2;
+  }
+
+  .modal {
+    align-items: center;
+  }
+
+  .modal-card {
+    border-radius: 30px;
+  }
+}
+
+
+==================================================
+FILE 3 — script.js
+==================================================
+
+const envelope = document.getElementById("envelope");
+const seal = document.getElementById("seal");
+const tapHint = document.getElementById("tapHint");
+const mailbox = document.getElementById("mailbox");
+
+const STORAGE = {
+  opened: "islamicBloomAugustOpened",
+  deeds: "islamicBloomAugustDeeds",
+  secret: "islamicBloomAugustSecret",
+  reflection: "islamicBloomAugustReflection"
+};
+
+function openEnvelope() {
+  if (envelope.classList.contains("open")) return;
+
+  envelope.classList.add("open");
+  tapHint.textContent = "Your August mail is opening... 🌸";
+  localStorage.setItem(STORAGE.opened, "true");
+
+  setTimeout(() => {
+    tapHint.textContent = "Something beautiful for your heart has arrived 💌";
+  }, 900);
+
+  setTimeout(() => {
+    mailbox.classList.remove("hidden");
+    mailbox.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 1800);
+}
+
+seal.addEventListener("click", openEnvelope);
+seal.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") openEnvelope();
+});
+
+if (localStorage.getItem(STORAGE.opened) === "true") {
+  envelope.classList.add("open");
+  mailbox.classList.remove("hidden");
+  tapHint.textContent = "Welcome back to your August mail 🌷";
+}
+
+/* MODALS */
+const modals = document.querySelectorAll(".modal");
+
+document.querySelectorAll("[data-modal]").forEach(piece => {
+  piece.addEventListener("click", () => {
+    const modalId = piece.dataset.modal;
+
+    if (piece.id === "giftPiece") {
+      updateGift();
+    }
+
+    document.getElementById(modalId)?.classList.add("show");
+    document.body.style.overflow = "hidden";
+  });
+});
+
+document.querySelectorAll(".close").forEach(btn => {
+  btn.addEventListener("click", () => closeModal(btn.closest(".modal")));
+});
+
+modals.forEach(modal => {
+  modal.addEventListener("click", e => {
+    if (e.target === modal) closeModal(modal);
+  });
+});
+
+function closeModal(modal) {
+  modal.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+/* DEEDS */
+const deedBoxes = [...document.querySelectorAll(".deed")];
+let savedDeeds;
+
+try {
+  savedDeeds = JSON.parse(localStorage.getItem(STORAGE.deeds)) || Array(7).fill(false);
+} catch {
+  savedDeeds = Array(7).fill(false);
+}
+
+if (!Array.isArray(savedDeeds) || savedDeeds.length !== 7) {
+  savedDeeds = Array(7).fill(false);
+}
+
+deedBoxes.forEach((box, index) => {
+  box.checked = !!savedDeeds[index];
+
+  box.addEventListener("change", () => {
+    savedDeeds[index] = box.checked;
+    localStorage.setItem(STORAGE.deeds, JSON.stringify(savedDeeds));
+    updateProgress();
+  });
+});
+
+function completedCount() {
+  return savedDeeds.filter(Boolean).length;
+}
+
+function updateProgress() {
+  const count = completedCount();
+  const percent = (count / 7) * 100;
+
+  document.getElementById("progressFill").style.width = `${percent}%`;
+  document.getElementById("modalProgress").textContent = `${count} / 7 BLOOMED`;
+  document.getElementById("deedProgressLabel").textContent = `${count} of 7 bloomed`;
+
+  updateGift();
+  updateGarden();
+
+  const celebrated = sessionStorage.getItem("augustCelebrated");
+
+  if (count === 7 && !celebrated) {
+    sessionStorage.setItem("augustCelebrated", "true");
+    celebrate();
+
+    setTimeout(() => {
+      document.getElementById("giftModal").classList.add("show");
+      document.body.style.overflow = "hidden";
+    }, 800);
+  }
+}
+
+function updateGift() {
+  const unlocked = completedCount() === 7;
+  const giftPiece = document.getElementById("giftPiece");
+  const giftLabel = document.getElementById("giftLabel");
+  const giftIcon = document.getElementById("giftIcon");
+  const lockedGift = document.getElementById("lockedGift");
+  const unlockedGift = document.getElementById("unlockedGift");
+
+  if (unlocked) {
+    giftPiece.classList.remove("locked");
+    giftLabel.textContent = "Tap to open your bloom";
+    giftIcon.textContent = "🌷";
+    lockedGift.classList.add("hidden");
+    unlockedGift.classList.remove("hidden");
+  } else {
+    giftPiece.classList.add("locked");
+    giftLabel.textContent = `Complete ${7 - completedCount()} more to unlock`;
+    giftIcon.textContent = "🎁";
+    lockedGift.classList.remove("hidden");
+    unlockedGift.classList.add("hidden");
+  }
+}
+
+function updateGarden() {
+  const complete = completedCount() === 7;
+  document.getElementById("augustGardenFlower").textContent = complete ? "🌷" : "🌱";
+  document.getElementById("gardenStatus").textContent = complete
+    ? "August Bloom collected — your Blush Tulip is open. 🌷"
+    : `Complete ${7 - completedCount()} more August deed${7 - completedCount() === 1 ? "" : "s"} to open your first bloom.`;
+}
+
+function celebrate() {
+  const celebration = document.getElementById("celebration");
+  celebration.classList.add("show");
+
+  setTimeout(() => {
+    celebration.classList.remove("show");
+  }, 4000);
+}
+
+/* SECRET DEED */
+const secretDone = document.getElementById("secretDone");
+const secretMessage = document.getElementById("secretMessage");
+
+function showSecretDone() {
+  secretMessage.classList.add("show");
+  secretDone.textContent = "🌸 Secret bloom completed";
+}
+
+if (localStorage.getItem(STORAGE.secret) === "true") {
+  showSecretDone();
+}
+
+secretDone.addEventListener("click", () => {
+  localStorage.setItem(STORAGE.secret, "true");
+  showSecretDone();
+});
+
+/* REFLECTION */
+let reflectionData = {};
+
+try {
+  reflectionData = JSON.parse(localStorage.getItem(STORAGE.reflection)) || {};
+} catch {
+  reflectionData = {};
+}
+
+document.querySelectorAll("[data-save]").forEach(area => {
+  const key = area.dataset.save;
+  area.value = reflectionData[key] || "";
+
+  area.addEventListener("input", () => {
+    reflectionData[key] = area.value;
+    localStorage.setItem(STORAGE.reflection, JSON.stringify(reflectionData));
+  });
+});
+
+/* SHARE */
+document.getElementById("shareButton").addEventListener("click", async () => {
+  const text = "For your heart 🤍 May Allah ease what feels heavy, forgive what has passed, guide what lies ahead and place barakah in what is written for you. I'm making dua for you. — Islamic Bloom";
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "A little reminder for your heart",
+        text
+      });
+    } catch {}
+  } else {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("Reminder copied 💌");
+    } catch {
+      alert(text);
+    }
+  }
+});
+
+updateProgress();
+
+
+==================================================
+HOW TO ADD IT TO GITHUB
+==================================================
+
+1. Create index.html
+2. Copy ONLY the index.html section above into it.
+3. Commit the file.
+4. Create style.css
+5. Copy ONLY the style.css section above into it.
+6. Commit the file.
+7. Create script.js
+8. Copy ONLY the script.js section above into it.
+9. Commit the file.
+
+Then enable GitHub Pages:
+Repository > Settings > Pages > Deploy from a branch > main > /root > Save.
+
+IMPORTANT:
+This is the August Islamic Bloom interactive snail-mail prototype.
+Before selling the finished product, verify all Qur'an, hadith, Arabic and religious references used in the final commercial version.
